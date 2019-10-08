@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 				switch (message.command) {
 					case 'searchTerm':
-						exec(`git grep "${message.searchTerm}"`, (err, searchResult, stderr) => {
+						exec(`git grep -F "${message.searchTerm}"`, (err, searchResult, stderr) => {
 							err && vscode.window.showErrorMessage(err.message);
 
 							[searchResult, stderr].forEach(src => {
