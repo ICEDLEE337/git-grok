@@ -1,11 +1,23 @@
 <script>
-	export let name;
+	let searchResult;
+	let term;
+
+	window.addEventListener('message', event => {
+            const message = event.data;
+
+			const {command} = message;
+
+            switch (command) {
+                case 'searchResult':
+					searchResult = message.searchResult;
+					break;
+            }
+		});
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
-</style>
 
-<h1>Hello {name}!</h1>
+</style>
+<input type="text" bind:value={term} />
+<button on:click={() => {window.vscode.postMessage({command: 'searchTerm', searchTerm: term})}} >search</button>
+{searchResult}

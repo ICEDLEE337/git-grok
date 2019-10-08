@@ -1,28 +1,34 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import {execSync} from 'child_process';
+import { execSync } from 'child_process';
 import { join } from 'path';
 
-
-
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "lee" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
 		const panel = vscode.window.createWebviewPanel(
 			'catCoding',
 			'Cat Coding',
 			vscode.ViewColumn.One,
-			{enableScripts: true}
+			{ enableScripts: true }
+		);
+
+		const post = panel.webview.postMessage.bind(panel.webview);
+
+		panel.webview.onDidReceiveMessage(
+			message => {
+
+				vscode.window.showInformationMessage(message.command);
+
+				switch (message.command) {
+					case 'searchTerm':
+						panel.webview.postMessage({ command: 'searchResult', searchResult: execSync(`git grep ${message.searchTerm}`).toString() });
+						return;
+				}
+			},
+			undefined,
+			context.subscriptions
 		);
 
 		function asset(filenameAndExt: string) {
@@ -39,7 +45,6 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 
 		const code = execSync('cat ' + asset('bundle.js').fsPath).toString();
-		vscode.window.showErrorMessage(code);
 
 
 		const html = `
@@ -56,15 +61,17 @@ export function activate(context: vscode.ExtensionContext) {
 
 				<body>
 				// <div id="app">things go here</div>
+				<script>window.vscode = acquireVsCodeApi();</script>
 				<script>${code}</script>
 			</body>
 			</html>
 			`;
 
-			vscode.window.showErrorMessage(html);
+		vscode.window.showErrorMessage(html);
 
-			panel.webview.html = html;
-	})
+		panel.webview.html = html;
+	});
+
 
 	context.subscriptions.push(disposable);
 }
