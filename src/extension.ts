@@ -1,6 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import {execSync} from 'child_process';
+import {RepoManager} from './lib/repo-manager';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,7 +19,18 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World!');
+		vscode.window.showErrorMessage(context.globalStoragePath);
+		const root = context.globalStoragePath;
+		execSync(`mkdir -p ${root}`);
+
+		const opts: vscode.InputBoxOptions = {
+			placeHolder: 'https://github.com/...',
+			value: 'https://github.com/icedlee337/resume.git'
+
+		};
+
+		const input = vscode.window.showInputBox(opts);
+		input.then(i => i && new RepoManager().clone(i, root))
 	});
 
 	context.subscriptions.push(disposable);
@@ -25,3 +38,5 @@ export function activate(context: vscode.ExtensionContext) {
 
 // this method is called when your extension is deactivated
 export function deactivate() {}
+
+
