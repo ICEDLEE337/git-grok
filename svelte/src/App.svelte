@@ -1,5 +1,5 @@
 <script>
-	let searchResult;
+	let searchResult = '';
 	let term;
 
 	window.addEventListener('message', event => {
@@ -9,7 +9,7 @@
 
             switch (command) {
                 case 'searchResult':
-					searchResult = message.searchResult;
+					searchResult += message.searchResult;
 					break;
             }
 		});

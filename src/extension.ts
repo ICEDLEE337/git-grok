@@ -1,7 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { execSync } from 'child_process';
+import { exec, execSync } from 'child_process';
 import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -23,7 +23,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 				switch (message.command) {
 					case 'searchTerm':
-						panel.webview.postMessage({ command: 'searchResult', searchResult: execSync(`git grep ${message.searchTerm}`).toString() });
+						exec(`git grep "${message.searchTerm}"`, (err, searchResult, stderr) => {
+							err && vscode.window.showErrorMessage(err.message);
+
+							[searchResult, stderr].forEach(src => {
+								panel.webview.postMessage({ command: 'searchResult', searchResult: src.toString() });
+								vscode.window.showInformationMessage(src);
+							})
+						});
 						return;
 				}
 			},
