@@ -2,7 +2,9 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import {execSync} from 'child_process';
-import {RepoManager} from './lib/repo-manager';
+import { join } from 'path';
+
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -16,27 +18,58 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
+		const panel = vscode.window.createWebviewPanel(
+			'catCoding',
+			'Cat Coding',
+			vscode.ViewColumn.One,
+			{enableScripts: true}
+		);
 
-		// Display a message box to the user
-		vscode.window.showErrorMessage(context.globalStoragePath);
-		const root = context.globalStoragePath;
-		execSync(`mkdir -p ${root}`);
+		function asset(filenameAndExt: string) {
+			// Get path to resource on disk
+			const onDiskPath = vscode.Uri.file(
+				join(context.extensionPath, 'svelte', 'public', filenameAndExt)
+			);
 
-		const opts: vscode.InputBoxOptions = {
-			placeHolder: 'https://github.com/...',
-			value: 'https://github.com/icedlee337/resume.git'
+			// And get the special URI to use with the webview
+			const catGifSrc = panel.webview.asWebviewUri(onDiskPath);
 
-		};
+			return catGifSrc;
 
-		const input = vscode.window.showInputBox(opts);
-		input.then(i => i && new RepoManager().clone(i, root))
-	});
+		}
+
+		const code = execSync('cat ' + asset('bundle.js').fsPath).toString();
+		vscode.window.showErrorMessage(code);
+
+
+		const html = `
+		<html lang="en">
+		<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Cat Coding</title>
+
+				<link rel="stylesheet" href="${asset('global.css')}">
+				<link rel="stylesheet" href="${asset('bundle.css')}">
+
+				</head>
+
+				<body>
+				// <div id="app">things go here</div>
+				<script>${code}</script>
+			</body>
+			</html>
+			`;
+
+			vscode.window.showErrorMessage(html);
+
+			panel.webview.html = html;
+	})
 
 	context.subscriptions.push(disposable);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
 
