@@ -3,6 +3,7 @@
 import * as vscode from 'vscode';
 import { exec, execSync } from 'child_process';
 import { join } from 'path';
+import ResultTransformer from './lib/result-transformer';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -19,11 +20,23 @@ export function activate(context: vscode.ExtensionContext) {
 		panel.webview.onDidReceiveMessage(
 			message => {
 
-				vscode.window.showInformationMessage(message.command);
+				vscode.window.showInformationMessage(message.command + ': ' + message.searchTerm);
 
 				switch (message.command) {
 					case 'searchTerm':
-						exec(`git grep -F "${message.searchTerm}"`, (err, searchResult, stderr) => {
+						exec(`git grep --break --heading --line-number -n -F -- "${message.searchTerm}"`, (err, searchResult) => {
+							err && vscode.window.showErrorMessage(err.message);
+
+							[searchResult].forEach(src => {
+								const searchResult = ResultTransformer.transform(src.toString(), 'blah');
+								vscode.window.showInformationMessage(Object.keys(searchResult.matchesRefined[0]).sort().join(' '));
+								panel.webview.postMessage({ command: 'searchResult', searchResult, searchResultNew: searchResult.matchesRefined});
+							})
+						});
+						return;
+
+					case 'searchTermOld':
+						exec(`git grep -F '${message.searchTerm}'`, (err, searchResult, stderr) => {
 							err && vscode.window.showErrorMessage(err.message);
 
 							[searchResult, stderr].forEach(src => {
