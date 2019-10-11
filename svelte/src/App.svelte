@@ -1,11 +1,8 @@
 <script>
-import {Observable} from 'rxjs';
 
-let now = Observable.create(o => {
-	setInterval(() => {
-		o.next(new Date());
-	}, 1000);
-});
+import {Observable} from 'rxjs';
+import Results from './results.svelte';
+
 	let searchResult = '';
 	let term = '';
 	let results = [];
@@ -46,16 +43,6 @@ let now = Observable.create(o => {
 	</form>
 
 	<div>
-		{#each results as r}
-			<div>
-				<h6>{r.name}</h6>
-				<hr/>
-				<div>
-					{#each r.matchingLines as line}
-						<li>{line}</li>
-					{/each}
-				</div>
-			</div>
-		{/each}
+		<Results {results} />
 	</div>
 </section>
