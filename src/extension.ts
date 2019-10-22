@@ -37,6 +37,10 @@ export function activate(context: vscode.ExtensionContext) {
 						});
 						return;
 
+					case 'openFile':
+						exec(`code ${message.name}`);
+						return;
+
 					case 'searchTermOld':
 						exec(`git grep -F '${message.searchTerm}'`, (err, searchResult, stderr) => {
 							if (err) {
