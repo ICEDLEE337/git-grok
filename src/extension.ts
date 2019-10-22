@@ -25,24 +25,28 @@ export function activate(context: vscode.ExtensionContext) {
 				switch (message.command) {
 					case 'searchTerm':
 						exec(`git grep --break --heading --line-number -n -F -- "${message.searchTerm}"`, (err, searchResult) => {
-							err && vscode.window.showErrorMessage(err.message);
+							if (err) {
+								vscode.window.showErrorMessage(err.message);
+							}
 
 							[searchResult].forEach(src => {
 								const searchResult = ResultTransformer.transform(src.toString(), 'blah');
 								vscode.window.showInformationMessage(Object.keys(searchResult.matchesRefined[0]).sort().join(' '));
 								panel.webview.postMessage({ command: 'searchResult', searchResult, searchResultNew: searchResult.matchesRefined});
-							})
+							});
 						});
 						return;
 
 					case 'searchTermOld':
 						exec(`git grep -F '${message.searchTerm}'`, (err, searchResult, stderr) => {
-							err && vscode.window.showErrorMessage(err.message);
+							if (err) {
+								vscode.window.showErrorMessage(err.message);
+							}
 
 							[searchResult, stderr].forEach(src => {
 								panel.webview.postMessage({ command: 'searchResult', searchResult: src.toString() });
 								vscode.window.showInformationMessage(src);
-							})
+							});
 						});
 						return;
 				}
