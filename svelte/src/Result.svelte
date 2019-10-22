@@ -16,9 +16,14 @@ function openFile () {
 
 <style>
     .result {
-        background-color: slategray;
-        color: black;
         border-radius: 4px;
         padding: 4px;
+        background-color: var(--vscode-editor-foreground);
+	    color: var(--vscode-editor-background);
+    }
+
+    .result button {
+        background-color: var(--vscode-button-background);
+        color: var(--vscode-button-foreground);
     }
 </style>

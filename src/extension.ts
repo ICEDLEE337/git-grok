@@ -88,7 +88,6 @@ export function activate(context: vscode.ExtensionContext) {
 				</head>
 
 				<body>
-				// <div id="app">things go here</div>
 				<script>window.vscode = acquireVsCodeApi();</script>
 				<script>${code}</script>
 			</body>

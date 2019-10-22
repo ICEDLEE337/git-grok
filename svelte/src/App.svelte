@@ -32,7 +32,8 @@ import Results from './results.svelte';
 
 <style>
 #app {
-	color: white;
+	color: var(--vscode-editor-foreground);
+	background-color: var(--vscode-editor-background);
 }
 </style>
 <section id="app">
