@@ -1,8 +1,7 @@
 import { writable } from 'svelte/store';
-import Handler from './handler.js';
-const handler = new Handler();
-const searchResults = writable([]);
+import handler from './handler.js';
+const searchResultsStore = writable([]);
 
-handler.subscribeTo('searchResults', r => searchResults.update(r));
+handler.subscribeTo('searchResult', r => searchResultsStore.update(r));
 
-export default searchResults;
+export default searchResultsStore;

@@ -1,6 +1,5 @@
 <script>
-import Handler from './handler.js';
-const handler = new Handler();
+import handler from './handler.js';
 export let name;
 export let matchingLines;
 function openFile () {

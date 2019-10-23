@@ -1,6 +1,6 @@
 import Console from './console.js';
 
-export default class Handler {
+class Handler {
     constructor () {
         this.console = new Console();
     }
@@ -38,3 +38,7 @@ export default class Handler {
     }
 
 }
+
+window.gitGrokHandle = window.gitGrokHandle || new Handler();
+
+export default window.gitGrokHandle;

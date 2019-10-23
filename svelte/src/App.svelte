@@ -1,16 +1,12 @@
 <script>
 import Results from './results.svelte';
-import Handler from './handler.js';
-
-const handler = new Handler();
+import handler from './handler.js';
+import searchResultStore from './search-result.store.js';
+import Console from './console.js';
 handler.listenToVsCode();
 
 let term = '';
 let results = [];
-
-handler.subscribeTo('searchResult', data => {
-	results = data;
-});
 
 let search = function search() {
 	if (!term.trim().length) {
@@ -19,6 +15,8 @@ let search = function search() {
 	results = [];
 	handler.postTo('search', term);
 }
+
+window.addEventListener('error', e => new Console().error(e.message))
 </script>
 
 <style>
@@ -35,6 +33,6 @@ let search = function search() {
 	</form>
 
 	<div>
-		<Results {results} />
+		<Results results={$searchResultStore} />
 	</div>
 </section>
