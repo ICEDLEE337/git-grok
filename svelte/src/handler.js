@@ -3,7 +3,9 @@ import searchResultStore from './search-result.store.js';
 
 export default class Handler {
     constructor () {
-        this.handlers = {searchResult: r => searchResultStore.set(r)};
+        this.handlers = {
+            searchResult: r => searchResultStore.set(r),
+        };
         this.console = new Console();
         this.listenToVsCode();
     }
@@ -19,17 +21,12 @@ export default class Handler {
                 throw new Error(`no handler registered for ${command}`)
             } else {
                 try {
-                    this.console.info(`executing handlerrr ${name}`);
+                    this.console.info(`executing handler ${command}`);
                     hndlr(data);
                 } catch (e) {
-                    this.console.warn(`${command}`)
+                    this.console.warn(`error executing${command}`)
                 }
             }
         });
     }
-
-    postTo(name, payload) {
-        window.vscode.postMessage({command: name, payload})
-    }
-
 }

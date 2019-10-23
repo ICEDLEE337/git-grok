@@ -3,7 +3,10 @@ import Results from './results.svelte';
 import Handler from './handler.js';
 import searchResultStore from './search-result.store.js';
 import Console from './console.js';
-const handler = new Handler();
+import postTo from './post-message.js';
+
+new Handler();
+
 let term = '';
 let results = [];
 
@@ -12,7 +15,7 @@ let search = function search() {
 		return;
 	}
 	results = [];
-	handler.postTo('search', term);
+	postTo('search', term);
 }
 
 

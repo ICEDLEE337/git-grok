@@ -1,10 +1,9 @@
 <script>
-import Handler from './handler.js';
 export let name;
 export let matchingLines;
-const handler = new Handler();
+import postTo from './post-message.js';
 function openFile () {
-    handler.postTo('openFile', name);
+    postTo('openFile', name);
 }
 </script>
 
