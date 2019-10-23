@@ -23,7 +23,7 @@ export default class ResultTransformer {
     }
 
     static transform(matches: string, repo: string): RepoSearchResultWithFileDetails {
-        return this.transformInternal({matches, repo})
+        return this.transformInternal({matches, repo});
     }
 
     static transformInternal(result: RepoSearchResult): RepoSearchResultWithFileDetails {
@@ -38,7 +38,7 @@ export default class ResultTransformer {
 
     private static splitFileChunk(text: string): FileSearchResult {
         const lines = text.split('\n');
-        return { name: lines[0], matchingLines: lines.slice(1) } as FileSearchResult;
+        return { name: lines[0], matchingLines: lines.slice(1).filter(_.identity) } as FileSearchResult;
     }
 
 }

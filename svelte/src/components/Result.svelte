@@ -1,18 +1,22 @@
 <script>
+import postTo from '../lib/post-message';
 export let name;
 export let matchingLines;
-import postTo from '../lib/post-message';
 function openFile () {
     postTo('openFile', name);
 }
 </script>
 
 <div class="result">
-<h2><button on:click={openFile}>{name}</button></h2>
+    <h2><button on:click={openFile}>{name}</button></h2>
+    <hr />
+    <ul>
     {#each matchingLines as line}
-        {line}
+        <li>{line}</li>
     {/each}
-<p>{name}</p>
+    </ul>
+    <hr />
+    <small>{matchingLines.length} matching lines</small>
 </div>
 
 <style>
