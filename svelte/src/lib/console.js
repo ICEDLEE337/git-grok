@@ -1,12 +1,10 @@
-import postMessage from './post-message';
-
 export default class Console {
 
-    info (payload) {postMessage('info', payload)}
-    warn (payload) {postMessage('warn', payload)}
-    error (payload) {postMessage('error', payload)}
+    info (payload) {this.postMessage('info', payload)}
+    warn (payload) {this.postMessage('warn', payload)}
+    error (payload) {this.postMessage('error', payload)}
 
-    post (level, payload) {
-        window.vscode.postMessage(level, {payload})
+    postMessage (level, payload) {
+        window.vscode.postMessage({ command: level, payload })
     }
 }
