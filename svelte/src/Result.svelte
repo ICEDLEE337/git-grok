@@ -1,7 +1,8 @@
 <script>
-import handler from './handler.js';
+import Handler from './handler.js';
 export let name;
 export let matchingLines;
+const handler = new Handler();
 function openFile () {
     handler.postTo('openFile', name);
 }

@@ -1,12 +1,14 @@
 import Console from './console.js';
+import searchResultStore from './search-result.store.js';
 
-class Handler {
+export default class Handler {
     constructor () {
+        this.handlers = {searchResult: r => searchResultStore.set(r)};
         this.console = new Console();
+        this.listenToVsCode();
     }
 
     listenToVsCode() {
-        this.handlers = {};
         window.addEventListener('message', event => {
             const message = event.data;
 
@@ -17,6 +19,7 @@ class Handler {
                 throw new Error(`no handler registered for ${command}`)
             } else {
                 try {
+                    this.console.info(`executing handlerrr ${name}`);
                     hndlr(data);
                 } catch (e) {
                     this.console.warn(`${command}`)
@@ -25,20 +28,8 @@ class Handler {
         });
     }
 
-    subscribeTo(name, handler) {
-        if (this.handlers[name]) {
-            throw new Error(`${name} is already a registered handler`);
-        }
-
-        this.handlers[name] = handler;
-    }
-
     postTo(name, payload) {
         window.vscode.postMessage({command: name, payload})
     }
 
 }
-
-window.gitGrokHandle = window.gitGrokHandle || new Handler();
-
-export default window.gitGrokHandle;

@@ -1,10 +1,9 @@
 <script>
 import Results from './results.svelte';
-import handler from './handler.js';
+import Handler from './handler.js';
 import searchResultStore from './search-result.store.js';
 import Console from './console.js';
-handler.listenToVsCode();
-
+const handler = new Handler();
 let term = '';
 let results = [];
 
@@ -16,13 +15,13 @@ let search = function search() {
 	handler.postTo('search', term);
 }
 
-window.addEventListener('error', e => new Console().error(e.message))
+
 </script>
 
 <style>
 #app {
 	color: var(--vscode-editor-foreground);
-	background-color: var(--vscode-editor-background);
+	background-color: hotpink;
 }
 </style>
 
@@ -31,7 +30,7 @@ window.addEventListener('error', e => new Console().error(e.message))
 		<input type="text" bind:value={term} />
 		<button type="submit" on:click={search} >search</button>
 	</form>
-
+{$searchResultStore}
 	<div>
 		<Results results={$searchResultStore} />
 	</div>

@@ -20,12 +20,12 @@ export function activate(context: vscode.ExtensionContext) {
 				const {command, payload} = message;
 				switch (command) {
 					case 'search':
-						exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, (err, searchResult) => {
+						exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, (err, commandResult) => {
 							if (err) {
 								vscode.window.showErrorMessage(err.message);
 							}
 
-							[searchResult].forEach(src => {
+							[commandResult].forEach(src => {
 								const searchResult = ResultTransformer.transform(src.toString(), 'blah');
 								panel.webview.postMessage({ command: 'searchResult', data: searchResult.matchesRefined });
 							});
