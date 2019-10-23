@@ -1,8 +1,10 @@
 <script>
+import Handler from './handler.js';
+const handler = new Handler();
 export let name;
 export let matchingLines;
 function openFile () {
-    window.vscode.postMessage({command: 'openFile', name});
+    handler.postTo('openFile', name);
 }
 </script>
 

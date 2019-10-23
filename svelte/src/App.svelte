@@ -1,33 +1,24 @@
 <script>
-
-import {Observable} from 'rxjs';
 import Results from './results.svelte';
+import Handler from './handler.js';
 
-	let searchResult = '';
-	let term = '';
-	let results = [];
+const handler = new Handler();
+handler.listenToVsCode();
 
-	window.addEventListener('message', event => {
-            const message = event.data;
+let term = '';
+let results = [];
 
-			const {command} = message;
+handler.subscribeTo('searchResult', data => {
+	results = data;
+});
 
-            switch (command) {
-                case 'searchResult':
-					searchResult += message.searchResult;
-					results = message.searchResultNew;
-					break;
-            }
-		});
-
-		let search = function search() {
-			if (!term.trim().length) {
-				return;
-			}
-			results = [];
-			const searchTerm = term;
-			window.vscode.postMessage({command: 'searchTerm', searchTerm})
-		}
+let search = function search() {
+	if (!term.trim().length) {
+		return;
+	}
+	results = [];
+	handler.postTo('search', term);
+}
 </script>
 
 <style>
@@ -36,8 +27,8 @@ import Results from './results.svelte';
 	background-color: var(--vscode-editor-background);
 }
 </style>
-<section id="app">
 
+<section id="app">
 	<form on:submit={search}>
 		<input type="text" bind:value={term} />
 		<button type="submit" on:click={search} >search</button>

@@ -9,50 +9,45 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
 		const panel = vscode.window.createWebviewPanel(
-			'catCoding',
-			'Cat Coding',
+			'gitgrok',
+			'GitGrok',
 			vscode.ViewColumn.One,
 			{ enableScripts: true }
 		);
 
-		const post = panel.webview.postMessage.bind(panel.webview);
-
 		panel.webview.onDidReceiveMessage(
 			message => {
-
-				vscode.window.showInformationMessage(message.command + ': ' + message.searchTerm);
-
-				switch (message.command) {
-					case 'searchTerm':
-						exec(`git grep --break --heading --line-number -n -F -- "${message.searchTerm}"`, (err, searchResult) => {
+				const {command, payload} = message;
+				switch (command) {
+					case 'search':
+						exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, (err, searchResult) => {
 							if (err) {
 								vscode.window.showErrorMessage(err.message);
 							}
 
 							[searchResult].forEach(src => {
 								const searchResult = ResultTransformer.transform(src.toString(), 'blah');
-								vscode.window.showInformationMessage(Object.keys(searchResult.matchesRefined[0]).sort().join(' '));
-								panel.webview.postMessage({ command: 'searchResult', searchResult, searchResultNew: searchResult.matchesRefined});
+								panel.webview.postMessage({ command: 'searchResult', data: searchResult.matchesRefined });
 							});
 						});
 						return;
 
 					case 'openFile':
-						exec(`code ${message.name}`);
+						exec(`code ${payload}`);
 						return;
 
-					case 'searchTermOld':
-						exec(`git grep -F '${message.searchTerm}'`, (err, searchResult, stderr) => {
-							if (err) {
-								vscode.window.showErrorMessage(err.message);
-							}
-
-							[searchResult, stderr].forEach(src => {
-								panel.webview.postMessage({ command: 'searchResult', searchResult: src.toString() });
-								vscode.window.showInformationMessage(src);
-							});
-						});
+					case 'info':
+						vscode.window.showInformationMessage(payload);
 						return;
+
+					case 'warn':
+						vscode.window.showWarningMessage(payload);
+						return;
+
+					case 'error':
+						vscode.window.showErrorMessage(payload);
+						return;
+
 				}
 			},
 			undefined,
@@ -94,7 +89,6 @@ export function activate(context: vscode.ExtensionContext) {
 			</html>
 			`;
 
-		vscode.window.showErrorMessage(html);
 
 		panel.webview.html = html;
 	});
