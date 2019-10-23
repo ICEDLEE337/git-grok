@@ -1,40 +1,17 @@
 <script>
-import Results from './results.svelte';
+import Search from './components/search.svelte';
 import Handler from './handler.js';
-import searchResultStore from './search-result.store.js';
-import Console from './console.js';
-import postTo from './post-message.js';
 
 new Handler();
-
-let term = '';
-let results = [];
-
-let search = function search() {
-	if (!term.trim().length) {
-		return;
-	}
-	results = [];
-	postTo('search', term);
-}
-
-
 </script>
 
 <style>
 #app {
 	color: var(--vscode-editor-foreground);
-	background-color: hotpink;
+	background-color: var(--vscode-editor-background);;
 }
 </style>
 
 <section id="app">
-	<form on:submit={search}>
-		<input type="text" bind:value={term} />
-		<button type="submit" on:click={search} >search</button>
-	</form>
-{$searchResultStore}
-	<div>
-		<Results results={$searchResultStore} />
-	</div>
+	<Search />
 </section>

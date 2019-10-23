@@ -1,5 +1,5 @@
-import Console from './console.js';
-import searchResultStore from './search-result.store.js';
+import Console from './lib/console.js';
+import searchResultStore from './stores/search-result.store.js';
 
 export default class Handler {
     constructor () {
