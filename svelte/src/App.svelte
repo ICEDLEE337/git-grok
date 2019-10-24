@@ -1,5 +1,6 @@
 <script>
-import Search from './components/search.svelte';
+import Clone from './components/Clone.svelte';
+import Search from './components/Search.svelte';
 import Handler from './handler.js';
 
 new Handler();
@@ -13,5 +14,6 @@ new Handler();
 </style>
 
 <section id="app">
+	<Clone />
 	<Search />
 </section>

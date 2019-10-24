@@ -4,6 +4,7 @@ import * as vscode from 'vscode';
 import { exec, execSync } from 'child_process';
 import { join } from 'path';
 import ResultTransformer from './lib/result-transformer';
+import { RepoManager } from './lib/repo-manager';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -17,7 +18,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		panel.webview.onDidReceiveMessage(
 			message => {
-				const {command, payload} = message;
+				const { command, payload } = message;
 				switch (command) {
 					case 'search':
 						exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, (err, commandResult) => {
@@ -34,6 +35,14 @@ export function activate(context: vscode.ExtensionContext) {
 
 					case 'openFile':
 						exec(`code ${payload}`);
+						return;
+
+					case 'clone':
+							const url = payload;
+							vscode.window.showInformationMessage(`cloning ${url}}`);
+							new RepoManager().clone(url)
+								.then(() => vscode.window.showInformationMessage(`successfully cloned ${url}`))
+								.catch(() => vscode.window.showErrorMessage(`failed to clone ${url}`));
 						return;
 
 					case 'info':
