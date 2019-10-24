@@ -4,6 +4,9 @@ import { parse } from 'path';
 import { ManifestManager } from './manifest-manager';
 
 export class RepoManager {
+	getRepoList(): any {
+		return new ManifestManager().getRepoList();
+	}
     async clone(url: string) {
         await new ManifestManager().addRepoToManifest(url);
         const home = await PathManager.getHomeDirectory();

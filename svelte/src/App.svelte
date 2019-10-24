@@ -11,6 +11,9 @@ new Handler();
 #app {
 	color: var(--vscode-editor-foreground);
 	background-color: var(--vscode-editor-background);
+	font-family: var(--vscode-font-family);
+	font-weight: var(--vscode-font-weight);
+	font-size: var(--vscode-font-size);
 }
 </style>
 

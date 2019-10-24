@@ -5,7 +5,21 @@ import Search from './Search.svelte';
 
 </script>
 
+<style type="text/scss">
+@import '../_variables.scss';
+.shell {
+    display: flex;
+    .menu {
+        padding: $padding;
+    }
+}
+</style>
+
+<h1>GitGrok {$routerStore.name}</h1>
+
+<hr />
+
 <div class="shell">
-    <Menu />
-    <svelte:component this={Search}/>
+    <div class="menu"><Menu/></div>
+    <svelte:component this={$routerStore.component}/>
 </div>

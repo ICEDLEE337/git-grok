@@ -18,6 +18,9 @@ export function activate(context: vscode.ExtensionContext) {
 
 		panel.webview.onDidReceiveMessage(
 			message => {
+				const postMessage = (command: string, data: any) => {
+					panel.webview.postMessage({ command, data });
+				};
 				const { command, payload } = message;
 				switch (command) {
 					case 'search':
@@ -28,7 +31,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 							[commandResult].forEach(src => {
 								const searchResult = ResultTransformer.transform(src.toString(), 'blah');
-								panel.webview.postMessage({ command: 'searchResult', data: searchResult.matchesRefined });
+								postMessage('searchResult', searchResult.matchesRefined);
 							});
 						});
 						return;
@@ -57,6 +60,10 @@ export function activate(context: vscode.ExtensionContext) {
 						vscode.window.showErrorMessage(payload);
 						return;
 
+					case 'repoList':
+						return new RepoManager().getRepoList();
+						return;
+
 				}
 			},
 			undefined,
@@ -82,7 +89,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 				<link rel="stylesheet" href="${asset('global.css')}">
 				<link rel="stylesheet" href="${asset('bundle.css')}">
-
 				</head>
 
 				<body>
