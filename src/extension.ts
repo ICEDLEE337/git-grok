@@ -8,7 +8,7 @@ import { RepoManager } from './lib/repo-manager';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('extension.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('extension.gitGrok', () => {
 		const panel = vscode.window.createWebviewPanel(
 			'gitgrok',
 			'GitGrok',
@@ -64,16 +64,10 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 
 		function asset(filenameAndExt: string) {
-			// Get path to resource on disk
 			const onDiskPath = vscode.Uri.file(
 				join(context.extensionPath, 'svelte', 'public', filenameAndExt)
 			);
-
-			// And get the special URI to use with the webview
-			const catGifSrc = panel.webview.asWebviewUri(onDiskPath);
-
-			return catGifSrc;
-
+			return panel.webview.asWebviewUri(onDiskPath);
 		}
 
 		const code = execSync('cat ' + asset('bundle.js').fsPath).toString();
@@ -84,7 +78,7 @@ export function activate(context: vscode.ExtensionContext) {
 		<head>
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<title>Cat Coding</title>
+			<title>gitgrok</title>
 
 				<link rel="stylesheet" href="${asset('global.css')}">
 				<link rel="stylesheet" href="${asset('bundle.css')}">
