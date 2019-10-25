@@ -1,12 +1,14 @@
 import Console from './lib/console.js';
-import searchResultStore from './stores/search-result.store.js';
+import { searchResultStore } from './stores/search-result.store.js';
+import repoListStore from './stores/repo-list.store.js';
 
 export default class Handler {
     constructor () {
+        this.console = new Console();
         this.handlers = {
             searchResult: r => searchResultStore.set(r),
+            repoList: list => repoListStore.set(list)
         };
-        this.console = new Console();
         this.listenToVsCode();
     }
 
@@ -14,7 +16,7 @@ export default class Handler {
         window.addEventListener('message', event => {
             const message = event.data;
 
-            const { command, data } = message;
+            const { command, payload } = message;
 
             const hndlr = this.handlers[command];
             if (!hndlr) {
@@ -22,7 +24,7 @@ export default class Handler {
             } else {
                 try {
                     this.console.info(`executing handler ${command}`);
-                    hndlr(data);
+                    hndlr(payload);
                 } catch (e) {
                     this.console.warn(`error executing${command}`)
                 }

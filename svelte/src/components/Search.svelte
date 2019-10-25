@@ -1,8 +1,8 @@
 <script>
 import Results from './results.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
-import searchResultStore from '../stores/search-result.store.js';
-import postTo from '../lib/post-message.js';
+import {searchResultStore } from '../stores/search-result.store.js';
+import {postMessage} from '../lib/post-message';
 
 let term = '';
 let results = [];
@@ -12,7 +12,7 @@ let search = function search() {
 		return;
 	}
 	results = [];
-	postTo('search', term);
+	postMessage('search', term);
 }
 </script>
 

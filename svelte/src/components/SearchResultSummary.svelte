@@ -1,5 +1,5 @@
 <script>
-import searchResultStore from '../stores/search-result.store';
+import {searchResultStore} from '../stores/search-result.store';
 </script>
 
-{$searchResultStore.length} total results
+<h2>{$searchResultStore.length} total results</h2>>

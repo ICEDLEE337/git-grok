@@ -1,5 +1,5 @@
 <script>
-import postMessage from '../lib/post-message';
+import {postMessage} from '../lib/post-message';
 
 let url;
 let error;

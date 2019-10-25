@@ -18,8 +18,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 		panel.webview.onDidReceiveMessage(
 			message => {
-				const postMessage = (command: string, data: any) => {
-					panel.webview.postMessage({ command, data });
+				const postMessage = (command: string, payload: any) => {
+					panel.webview.postMessage({ command, payload });
 				};
 				const { command, payload } = message;
 				switch (command) {
@@ -61,8 +61,10 @@ export function activate(context: vscode.ExtensionContext) {
 						return;
 
 					case 'repoList':
-						return new RepoManager().getRepoList();
-						return;
+						new RepoManager().getRepoList().then((repos: any) => {
+							postMessage(command, repos);
+						});
+					return;
 
 				}
 			},

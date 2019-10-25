@@ -1,9 +1,9 @@
 <script>
-import postTo from '../lib/post-message';
+import {postMessage} from '../lib/post-message';
 export let name;
 export let matchingLines;
 function openFile () {
-    postTo('openFile', name);
+    postMessage('openFile', name);
 }
 </script>
 

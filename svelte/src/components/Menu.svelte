@@ -2,10 +2,12 @@
 import {routerStore} from '../stores/router.store';
 import Search from '../components/Search.svelte';
 import Clone from '../components/Clone.svelte';
+import RepoList from '../components/RepoList.svelte';
 let active;
 let links = [
     {name: 'Search', component: Search},
-    {name: 'Index a repo', component: Clone}
+    {name: 'Index a repo', component: Clone},
+    {name: 'Repositories', component: RepoList}
 ];
 
 function nav (link) {
