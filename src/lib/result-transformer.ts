@@ -11,7 +11,11 @@ export default class ResultTransformer {
     }
 
     private static transformInternal(result: RepoSearchResult): RepoSearchResultWithFileDetails {
-        const matchesRefined = _(result.matches.split('\n\n')).map(this.splitFileChunk).value();
+        const matchesRefined = _(result.matches.split('\n\n')).map(this.splitFileChunk)
+        .map(r => {
+            r.url = result.repo;
+            return r;
+        }).value();
         const transformed: RepoSearchResultWithFileDetails = _.assign({}, result,
             {
                 matchesRefined,

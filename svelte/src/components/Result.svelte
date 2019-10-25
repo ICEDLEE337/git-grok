@@ -2,6 +2,8 @@
 import {postMessage} from '../lib/post-message';
 export let name;
 export let matchingLines;
+export let url;
+
 function openFile () {
     postMessage('openFile', name);
 }
@@ -9,6 +11,7 @@ function openFile () {
 
 <div class="result">
     <h2><button on:click={openFile}>{name}</button></h2>
+    <h3><a href={url}>{url}</a></h3>
     <hr />
     <ul>
     {#each matchingLines as line}

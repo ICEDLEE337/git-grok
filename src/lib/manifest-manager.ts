@@ -26,7 +26,7 @@ export class ManifestManager {
         });
     }
 
-    async getRepoList() {
+    async getRepoList(): Promise<Array<string>> {
         const manifest = await this.upsertManifest();
         try {
             return manifest.split('\n')

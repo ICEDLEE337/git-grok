@@ -1,17 +1,16 @@
 <script>
 import Results from './results.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
-import {searchResultStore } from '../stores/search-result.store.js';
+import searchResultStore from '../stores/search-result.store.js';
 import {postMessage} from '../lib/post-message';
 
 let term = '';
-let results = [];
 
 let search = function search() {
 	if (!term.trim().length) {
 		return;
 	}
-	results = [];
+	searchResultStore.set([]);
 	postMessage('search', term);
 }
 </script>

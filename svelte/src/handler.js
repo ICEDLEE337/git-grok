@@ -1,12 +1,12 @@
 import Console from './lib/console.js';
-import { searchResultStore } from './stores/search-result.store.js';
+import searchResultStore from './stores/search-result.store.js';
 import repoListStore from './stores/repo-list.store.js';
 
 export default class Handler {
     constructor () {
         this.console = new Console();
         this.handlers = {
-            searchResult: r => searchResultStore.set(r),
+            searchResult: list => searchResultStore.update(old => old.concat(list)),
             repoList: list => repoListStore.set(list)
         };
         this.listenToVsCode();
@@ -26,7 +26,7 @@ export default class Handler {
                     this.console.info(`executing handler ${command}`);
                     hndlr(payload);
                 } catch (e) {
-                    this.console.warn(`error executing${command}`)
+                    this.console.warn(`error executing ${command}: ${e.message}`)
                 }
             }
         });

@@ -5,6 +5,7 @@ import { exec, execSync } from 'child_process';
 import { join } from 'path';
 import ResultTransformer from './lib/result-transformer';
 import { RepoManager } from './lib/repo-manager';
+import { PathManager } from './lib/path-manager';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -24,16 +25,30 @@ export function activate(context: vscode.ExtensionContext) {
 				const { command, payload } = message;
 				switch (command) {
 					case 'search':
-						exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, (err, commandResult) => {
-							if (err) {
-								vscode.window.showErrorMessage(err.message);
-							}
+						let list: string[];
+						let home: string;
+						const rm = new RepoManager();
+						rm.getRepoList()
+							.then(rl => { list = rl; })
+							.then(() => PathManager.getHomeDirectory())
+							.then((h) => { home = h;})
+							.then(() => {
+								list.forEach(repo => {
+									const cwd = rm.extractProjectDirFromUrl(repo, home);
+									vscode.window.showErrorMessage(cwd);
 
-							[commandResult].forEach(src => {
-								const searchResult = ResultTransformer.transform(src.toString(), 'blah');
-								postMessage('searchResult', searchResult.matchesRefined);
+									exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, {cwd}, (err, commandResult) => {
+										if (err) {
+											vscode.window.showErrorMessage(err.message);
+										}
+
+										[commandResult].forEach(src => {
+											const searchResult = ResultTransformer.transform(src.toString(), repo);
+											postMessage('searchResult', searchResult.matchesRefined);
+										});
+									});
+								});
 							});
-						});
 						return;
 
 					case 'openFile':
@@ -41,11 +56,11 @@ export function activate(context: vscode.ExtensionContext) {
 						return;
 
 					case 'clone':
-							const url = payload;
-							vscode.window.showInformationMessage(`cloning ${url}}`);
-							new RepoManager().clone(url)
-								.then(() => vscode.window.showInformationMessage(`successfully cloned ${url}`))
-								.catch(() => vscode.window.showErrorMessage(`failed to clone ${url}`));
+						const url = payload;
+						vscode.window.showInformationMessage(`cloning ${url}}`);
+						new RepoManager().clone(url)
+							.then(() => vscode.window.showInformationMessage(`successfully cloned ${url}`))
+							.catch(() => vscode.window.showErrorMessage(`failed to clone ${url}`));
 						return;
 
 					case 'info':
@@ -64,7 +79,7 @@ export function activate(context: vscode.ExtensionContext) {
 						new RepoManager().getRepoList().then((repos: any) => {
 							postMessage(command, repos);
 						});
-					return;
+						return;
 
 				}
 			},
