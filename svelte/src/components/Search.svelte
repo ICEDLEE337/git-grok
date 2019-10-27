@@ -1,5 +1,6 @@
 <script>
-import Results from './results.svelte';
+import Button from './Button.svelte';
+import Results from './Results.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
 import searchResultStore from '../stores/search-result.store.js';
 import {postMessage} from '../lib/post-message';
@@ -22,7 +23,7 @@ let search = function search() {
 
 <form on:submit={search}>
     <input type="text" bind:value={term} />
-    <button type="submit" on:click={search} >search</button>
+    <Button type="submit" on:click={search} label="search" ></Button>
 </form>
 
 <div>
