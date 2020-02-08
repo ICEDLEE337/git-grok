@@ -19,17 +19,19 @@
 			"preLaunchTask": "npm: watch"
 		},
 		{
-			"name": "Run Spec File",
-			"type": "node",
+            "name": "Jest",
+            "type": "node",
 			"request": "launch",
-			"program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
-			"args": [
-				"test",
-				"--codeCoverage=false",
-				"--testFile=${file}"
+			"port": 9999,
+            "runtimeArgs": [
+
+				"--inspect-brk=9999",
+				"${workspaceRoot}/node_modules/.bin/jest",
+				"--runInBand",
+				"${file}"
 			],
-			"cwd": "${workspaceFolder}",
-			"console": "internalConsole"
-		}
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen"
+        }
 	]
 }
