@@ -19,18 +19,17 @@
 			"preLaunchTask": "npm: watch"
 		},
 		{
-			"name": "Extension Tests",
-			"type": "extensionHost",
+			"name": "Run Spec File",
+			"type": "node",
 			"request": "launch",
-			"runtimeExecutable": "${execPath}",
+			"program": "${workspaceFolder}/node_modules/jest/bin/jest.js",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index"
+				"test",
+				"--codeCoverage=false",
+				"--testFile=${file}"
 			],
-			"outFiles": [
-				"${workspaceFolder}/out/test/**/*.js"
-			],
-			"preLaunchTask": "npm: watch"
+			"cwd": "${workspaceFolder}",
+			"console": "internalConsole"
 		}
 	]
 }

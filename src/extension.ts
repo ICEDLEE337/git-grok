@@ -31,13 +31,13 @@ export function activate(context: vscode.ExtensionContext) {
 						rm.getRepoList()
 							.then(rl => { list = rl; })
 							.then(() => PathManager.getHomeDirectory())
-							.then((h) => { home = h;})
+							.then((h) => { home = h; })
 							.then(() => {
 								list.forEach(repo => {
 									const cwd = rm.extractProjectDirFromUrl(repo, home);
 									vscode.window.showErrorMessage(cwd);
 
-									exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, {cwd}, (err, commandResult) => {
+									exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, { cwd }, (err, commandResult) => {
 										if (err) {
 											vscode.window.showErrorMessage(err.message);
 										}
@@ -51,8 +51,17 @@ export function activate(context: vscode.ExtensionContext) {
 							});
 						return;
 
-					case 'openFile':
+					case 'openFileOld':
 						exec(`code ${payload}`);
+						return;
+					case 'openFile':
+						PathManager.getHomeDirectory('github.com').then(root => {
+
+							let p = `${root}${payload}`;
+							let uri = vscode.Uri.file(p);
+
+							vscode.commands.executeCommand('vscode.openFolder', uri);
+						});
 						return;
 
 					case 'clone':
