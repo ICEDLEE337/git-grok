@@ -3,9 +3,7 @@ import {routerStore} from '../stores/router.store';
 import Menu from './Menu.svelte';
 import Search from './Search.svelte';
 
-let active = {name: 'Search', component: Search}
-
-routerStore.set(active);
+routerStore.set({name: 'Search', component: Search});
 
 </script>
 
@@ -24,6 +22,6 @@ routerStore.set(active);
 <hr />
 
 <div class="shell">
-    <div class="menu" active={active}><Menu/></div>
+    <div class="menu"><Menu/></div>
     <svelte:component this={$routerStore.component}/>
 </div>
