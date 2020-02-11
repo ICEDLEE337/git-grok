@@ -7,6 +7,8 @@ import ResultTransformer from './lib/result-transformer';
 import { RepoManager } from './lib/repo-manager';
 import { PathManager } from './lib/path-manager';
 import { openFileHandler } from './lib/handlers/open-file.handler';
+import { cloneHandler } from './lib/handlers/clone.handler';
+import { searchHandler } from './lib/handlers/search.handler';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -26,51 +28,14 @@ export function activate(context: vscode.ExtensionContext) {
 				const { command, payload } = message;
 				switch (command) {
 					case 'search':
-						let list: string[];
-						let home: string;
-						const rm = new RepoManager();
-						rm.getRepoList()
-							.then(rl => { list = rl; })
-							.then(() => PathManager.getHomeDirectory())
-							.then((h) => { home = h; })
-							.then(() => {
-								list.forEach(repo => {
-									const cwd = rm.extractProjectDirFromUrl(repo, home);
-									vscode.window.showErrorMessage(cwd);
-
-									exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, { cwd }, (err, commandResult) => {
-										if (err) {
-											vscode.window.showErrorMessage(err.message);
-										}
-
-										[commandResult].forEach(src => {
-											const searchResult = ResultTransformer.transform(src.toString(), repo);
-											postMessage('searchResult', searchResult.matchesRefined);
-										});
-									});
-								});
-							});
+						searchHandler(payload, vscode, postMessage);
 						return;
 
 					case 'openFile':
 						openFileHandler(payload, vscode);
 						return;
-					case 'openFileLessOld':
-						PathManager.getHomeDirectory('github.com').then(root => {
-
-							let p = `${root}${payload}`;
-							let uri = vscode.Uri.file(p);
-
-							vscode.commands.executeCommand('vscode.openFolder', uri);
-						});
-						return;
-
 					case 'clone':
-						const url = payload;
-						vscode.window.showInformationMessage(`cloning ${url}}`);
-						new RepoManager().clone(url)
-							.then(() => vscode.window.showInformationMessage(`successfully cloned ${url}`))
-							.catch(() => vscode.window.showErrorMessage(`failed to clone ${url}`));
+						cloneHandler(payload, vscode);
 						return;
 
 					case 'info':
