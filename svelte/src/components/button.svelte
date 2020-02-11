@@ -4,7 +4,7 @@ export let appearance;
 </script>
 
 <style type="text/scss">
-@import '../_variables.scss';
+@import '../styles/_variables.scss';
 
 button {
         border: none;

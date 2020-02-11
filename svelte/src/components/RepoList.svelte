@@ -14,11 +14,12 @@ onMount(() => {
     display: flex;
     justify-content: stretch;
     flex-direction: column;
+    padding: 16px;
 }
 </style>
 
 <div class="repo-list">
     {#each $repoListStore as repo}
-        <div>{repo}</div>
+        <a href={repo}>{repo}</a>
     {/each}
 </div>

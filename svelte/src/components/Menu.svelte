@@ -4,22 +4,37 @@ import {routerStore} from '../stores/router.store';
 import Search from '../components/Search.svelte';
 import Clone from '../components/Clone.svelte';
 import RepoList from '../components/RepoList.svelte';
-let active;
+import {postMessage} from '../lib/post-message';
+import { onMount } from 'svelte';
+export let active;
 let links = [
     {name: 'Search', component: Search},
     {name: 'Index a repo', component: Clone},
     {name: 'Repositories', component: RepoList}
 ];
 
+onMount(() => {
+    setActive(active);
+    listenToRouter();
+});
+
 function nav (link) {
-    active = link.name;
+    setActive(link);
     routerStore.set(link);
+}
+
+function listenToRouter () {
+    routerStore.subscribe(v => postMessage(v));
+}
+
+function setActive (link) {
+    active = link.name;
 }
 
 </script>
 
 <style type="text/scss">
-@import '../_variables.scss';
+@import '../styles/_variables.scss';
 .menu {
     display: flex;
     justify-content: stretch;
