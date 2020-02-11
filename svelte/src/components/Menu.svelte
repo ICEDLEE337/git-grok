@@ -1,5 +1,5 @@
 <script>
-import Button from './Button.svelte';
+import Button from './../components/Btn.svelte';
 import {routerStore} from '../stores/router.store';
 import Search from '../components/Search.svelte';
 import Clone from '../components/Clone.svelte';

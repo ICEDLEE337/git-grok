@@ -3,10 +3,8 @@ import Results from './Results.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
 import searchResultStore from '../stores/search-result.store.js';
 import {postMessage} from '../lib/post-message';
-import 'bulma/css/bulma.css'
-import { Button } from 'svelma';
-import { Input } from 'svelma';
-import { Field } from 'svelma';
+import Button from './Btn.svelte';
+
 
 let term = '';
 
@@ -26,10 +24,10 @@ let search = function search() {
 <SearchResultSummary />
 
 <form on:submit={search}>
-<Field label="Search">
-    <Input type="text" bind:value={term} autofocus/>
-    <Button type="submit" on:click={search} label="search" >Search</Button>
-</Field>
+<div class="field">
+    <input class="input" type="text" bind:value={term} autofocus/>
+    <Button type="submit" on:click={search} label="search"></Button>
+</div>
 </form>
 
 <div>

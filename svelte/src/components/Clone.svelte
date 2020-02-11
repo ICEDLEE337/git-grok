@@ -1,7 +1,7 @@
 <script>
 
 import {postMessage} from '../lib/post-message';
-import Button from './Button.svelte';
+import Button from './Btn.svelte';
 const urlRegex = /https:\/\/.*?\..*?\/.*?\/.*?\.git$/;
 let url;
 let error;

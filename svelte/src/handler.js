@@ -23,7 +23,7 @@ export default class Handler {
                 throw new Error(`no handler registered for ${command}`)
             } else {
                 try {
-                    this.console.info(`executing handler ${command}`);
+                    this.console.info(`executing handler ${command}, ${payload}`);
                     hndlr(payload);
                 } catch (e) {
                     this.console.warn(`error executing ${command}: ${e.message}`)
