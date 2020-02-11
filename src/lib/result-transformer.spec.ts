@@ -27,9 +27,10 @@ describe('ResultTransformer', () => {
         });
 
         it('captures the matching lines for each matching file', () => {
+            const dir = 'github.com/angular/components';
             const matchesRefined: FileSearchResult[] = [
-                { "matchingLines": ["111: one"], "name": "fileNameOne", url },
-                { "matchingLines": ["22: two"], "name": "fileNameTwo", url }
+                { "matchingLines": ["111: one"], "name": "fileNameOne", url, path: `${dir}/fileNameOne`},
+                { "matchingLines": ["22: two"], "name": "fileNameTwo", url, path: `${dir}/fileNameTwo`}
             ];
             expect(ResultTransformer.transform(getMockMatches(), repo))
                 .toEqual(expect.objectContaining({ matchesRefined }));

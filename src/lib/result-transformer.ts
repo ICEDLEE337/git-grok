@@ -3,15 +3,11 @@ import _ from 'lodash';
 import RepoSearchResultWithFileDetails from './models/repo-search-result-with-file-details';
 import FileSearchResult from './models/file-search-result';
 import RepoSearchResult from './models/repo-search-result';
-import { writeFile } from 'fs';
 
 export default class ResultTransformer {
 
     static transform(matches: string, repo: string): RepoSearchResultWithFileDetails {
-        writeFile('./input', matches + '\n\n\n\n\n\n\n\n' + repo, 'utf8', () => {})
         const output = this.transformInternal({matches, repo});
-        writeFile('./output', JSON.stringify(output, null, 2), 'utf8', () => {})
-
         return output;
     }
 
@@ -20,7 +16,12 @@ export default class ResultTransformer {
         .map(r => {
             r.url = result.repo;
             return r;
-        }).value();
+        })
+        .map(r => {
+            r.path = result.repo.replace('https://', '').replace('.git', '') + '/' + r.name;
+            return r;
+        })
+        .value();
         const transformed: RepoSearchResultWithFileDetails = _.assign({}, result,
             {
                 matchesRefined,

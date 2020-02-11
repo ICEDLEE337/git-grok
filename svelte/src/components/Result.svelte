@@ -1,11 +1,12 @@
 <script>
 import {postMessage} from '../lib/post-message';
-export let name;
 export let matchingLines;
+export let name;
+export let path;
 export let url;
 
 function openFile () {
-    postMessage('openFile', name);
+    postMessage('openFile', path);
 }
 </script>
 

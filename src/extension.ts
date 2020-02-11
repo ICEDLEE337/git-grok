@@ -6,6 +6,7 @@ import { join } from 'path';
 import ResultTransformer from './lib/result-transformer';
 import { RepoManager } from './lib/repo-manager';
 import { PathManager } from './lib/path-manager';
+import { openFileHandler } from './lib/handlers/open-file.handler';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -51,10 +52,10 @@ export function activate(context: vscode.ExtensionContext) {
 							});
 						return;
 
-					case 'openFileOld':
-						exec(`code ${payload}`);
-						return;
 					case 'openFile':
+						openFileHandler(payload, vscode);
+						return;
+					case 'openFileLessOld':
 						PathManager.getHomeDirectory('github.com').then(root => {
 
 							let p = `${root}${payload}`;
