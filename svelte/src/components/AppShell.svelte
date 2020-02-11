@@ -3,6 +3,8 @@ import {routerStore} from '../stores/router.store';
 import Menu from './Menu.svelte';
 import Search from './Search.svelte';
 
+routerStore.set({name: 'Search', component: Search});
+
 </script>
 
 <style type="text/scss">
