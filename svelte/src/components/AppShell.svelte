@@ -11,6 +11,7 @@ routerStore.set({name: 'Search', component: Search});
 @import '../styles/variables.scss';
 .shell {
     display: flex;
+    flex-direction: column;
     .menu {
         padding: $padding;
     }
