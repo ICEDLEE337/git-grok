@@ -19,12 +19,13 @@ export const searchHandler = (payload: string, vscode: any, postMessage: any) =>
                 exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, { cwd }, (err, commandResult) => {
                     if (err) {
                         vscode.window.showErrorMessage(err.message);
+                    } else {
+                        [commandResult].forEach(src => {
+                            const searchResult = ResultTransformer.transform(src.toString(), repo);
+                            vscode.window.showErrorMessage(searchResult.matchesRefined.length);
+                            searchResult.matchesRefined && searchResult.matchesRefined.length && postMessage('searchResult', searchResult.matchesRefined);
+                        });
                     }
-
-                    [commandResult].forEach(src => {
-                        const searchResult = ResultTransformer.transform(src.toString(), repo);
-                        postMessage('searchResult', searchResult.matchesRefined);
-                    });
                 });
             });
         });
