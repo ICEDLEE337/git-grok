@@ -24,9 +24,13 @@ let search = function search() {
 <SearchResultSummary />
 
 <form on:submit={search}>
-<div class="field">
-    <input class="input" type="text" bind:value={term} autofocus/>
-    <Button type="submit" on:click={search} label="search"></Button>
+<div class="field has-addons">
+	<div class="control">
+    	<input class="input" type="text" bind:value={term} autofocus/>
+	</div>
+	<div class="control">
+    	<Button type="submit" class="button" on:click={search} label="search"></Button>
+	</div>
 </div>
 </form>
 

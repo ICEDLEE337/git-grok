@@ -17,6 +17,10 @@ new Handler();
 }
 </style>
 
+<svelte:head>
+  <style src="./styles/_variables.scss"></style>
+</svelte:head>
+
 <section id="app">
 	<AppShell />
 </section>

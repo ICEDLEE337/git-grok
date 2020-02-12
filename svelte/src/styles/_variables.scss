@@ -1,6 +1,8 @@
+@charset 'utf-8';
+// $primary: var(--vscode-button-foreground);
+@import '../node_modules/bulma/bulma.sass';
 $editor-foreground: var(--vscode-editor-foreground);
 $editor-background: var(--vscode-editor-background);
 $button-foreground: var(--vscode-button-foreground);
 $button-background: var(--vscode-button-background);
 $padding: 6px;
-
