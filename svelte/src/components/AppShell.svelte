@@ -18,10 +18,6 @@ routerStore.set({name: 'Search', component: Search});
 }
 </style>
 
-<h1>GitGrok {$routerStore.name}</h1>
-
-<hr />
-
 <div class="shell">
     <div class="menu"><Menu/></div>
     <svelte:component this={$routerStore.component}/>

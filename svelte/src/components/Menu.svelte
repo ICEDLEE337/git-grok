@@ -7,6 +7,7 @@ import Logo from '../components/Logo.svelte';
 import RepoList from '../components/RepoList.svelte';
 
 let activeName;
+let opened = true;
 
 let links = [
     {name: 'Search', component: Search},
@@ -21,6 +22,10 @@ function nav (link) {
 
 function setActive (link) {
     activeName = link.name;
+}
+
+function open () {
+    return opened;
 }
 
 </script>
@@ -39,7 +44,7 @@ function setActive (link) {
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div id="navbarBasicExample" class="navbar-menu is-expanded">
     <div class="navbar-start">
         {#each links as link}
             <button class="navbar-item" class:isPrimary="{link == activeName}" on:click={() => nav(link)}>{link.name}</button>
