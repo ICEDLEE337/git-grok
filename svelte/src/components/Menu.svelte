@@ -24,10 +24,6 @@ function setActive (link) {
     activeName = link.name;
 }
 
-function open () {
-    return opened;
-}
-
 </script>
 
 
@@ -37,27 +33,29 @@ function open () {
         <Logo />
     </div>
 
-    <a role="button" href="/" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+    <a role="button" href="/" class="navbar-burger burger" class:isExpanded={opened == true} on:click="{() => opened = !opened}">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu is-expanded">
+  <div id="navbarBasicExample" class="navbar-menu" class:isExpanded={opened == false}>
     <div class="navbar-start">
         {#each links as link}
-            <button class="navbar-item" class:isPrimary="{link == activeName}" on:click={() => nav(link)}>{link.name}</button>
+
+            <a class="navbar-item" class:primary="{link.name == activeName}" on:click={() => nav(link)}>{link.name}</a>
+
         {/each}
     </div>
 
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <button class="button is-primary">
+          <button class="button primary">
             <strong>Sign up</strong>
           </button>
-          <button class="button is-light">
+          <button class="button secondary">
             Log in
           </button>
         </div>

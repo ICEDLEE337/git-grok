@@ -1,8 +1,21 @@
 @charset 'utf-8';
-// $primary: var(--vscode-button-foreground);
+
+// $white: var(--vscode-editor-background);
+$turqoise: var(--vscode-button-foreground);
+$turqoise-invert: var(--vscode-button-background);
 @import '../node_modules/bulma/bulma.sass';
 $editor-foreground: var(--vscode-editor-foreground);
 $editor-background: var(--vscode-editor-background);
 $button-foreground: var(--vscode-button-foreground);
 $button-background: var(--vscode-button-background);
 $padding: 6px;
+
+    .secondary, button.primary:hover, a.primary:hover {
+        color: $button-background !important;
+        background-color: $button-foreground !important;
+    }
+
+    .primary, button.secondary:hover, a.secondary:hover {
+        color: $button-foreground !important;
+        background-color: $button-background !important;
+    }
