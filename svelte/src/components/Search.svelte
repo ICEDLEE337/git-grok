@@ -31,7 +31,7 @@ let search = function search() {
     	<input class="input" type="text" bind:value={term} autofocus/>
 	</div>
 	<div class="control">
-    	<Button type="submit" class="button" on:click={search}>Search</Button>
+    	<Button type="submit" class="button" on:click={search}>&#10003;</Button>
 	</div>
 </div>
 </form>
