@@ -20,8 +20,8 @@ $: valid = url && urlRegex.test(url);
 
 <form>
 <div class="field has-addons">
-  <div class="control">
-    <input type="text" class="input is-expanded" bind:value={url} />
+  <div class="control is-expanded">
+    <input type="text" class="input" bind:value={url} />
   </div>
   <div class="control">
     {#if valid}
