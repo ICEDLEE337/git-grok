@@ -1,7 +1,6 @@
 <script>
 
 import {postMessage} from '../lib/post-message';
-import Button from './Btn.svelte';
 const urlRegex = /https:\/\/.*?\..*?\/.*?\/.*?\.git$/;
 let url;
 let error;
@@ -21,7 +20,7 @@ $: valid = url && urlRegex.test(url);
     <input type="text" bind:value={url} />
     {#if url}
         {#if valid}
-            <Button type="submit" on:click={clone} label={label}></Button>
+            <button type="submit" class="is-primary" on:click={clone}>{label}</button>
         {:else}
             {url} is not a valid url
         {/if}

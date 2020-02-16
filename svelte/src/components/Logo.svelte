@@ -3,7 +3,6 @@
 figure {
     display: flex;
     justify-content: stretch;
-    background-color: var(--vscode-button-foreground);
 }
 
 .git, .grok {

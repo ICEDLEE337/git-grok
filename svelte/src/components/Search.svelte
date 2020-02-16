@@ -3,7 +3,6 @@ import Results from './Results.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
 import searchResultStore from '../stores/search-result.store.js';
 import {postMessage} from '../lib/post-message';
-import Button from './Btn.svelte';
 import Card from './Card.svelte';
 
 
@@ -31,7 +30,7 @@ let search = function search() {
     	<input class="input" type="text" bind:value={term} autofocus/>
 	</div>
 	<div class="control">
-    	<Button type="submit" class="button" on:click={search}>&#10003;</Button>
+    	<button type="submit" class="button is-primary" on:click={search}>&#10003;</button>
 	</div>
 </div>
 </form>

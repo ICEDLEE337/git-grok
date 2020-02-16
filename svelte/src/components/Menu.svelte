@@ -1,5 +1,4 @@
 <script>
-import Button from './../components/Btn.svelte';
 import {routerStore} from '../stores/router.store';
 import Search from '../components/Search.svelte';
 import Clone from '../components/Clone.svelte';
@@ -44,7 +43,7 @@ function setActive (link) {
     <div class="navbar-start">
         {#each links as link}
 
-            <a class="navbar-item" class:primary="{link.name == activeName}" on:click={() => nav(link)}>{link.name}</a>
+            <button class="navbar-item" class:is-primary="{link.name == activeName}" on:click={() => nav(link)}>{link.name}</button>
 
         {/each}
     </div>
@@ -52,11 +51,17 @@ function setActive (link) {
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <button class="button primary">
-            <strong>Sign up</strong>
+          <button class="button is-primary">
+            <strong>primary</strong>
           </button>
-          <button class="button secondary">
-            Log in
+          <button class="button is-danger">
+            danger
+          </button>
+           <button class="button is-info">
+            info
+          </button>
+          <button class="button is-success">
+            success
           </button>
         </div>
       </div>
@@ -64,3 +69,9 @@ function setActive (link) {
   </div>
 </nav>
 
+<style type="text/scss">
+ nav.navbar {
+   background-color: var(--vscode-editor-background);
+   color: var(--vscode-editor-foreground);
+ }
+</style>
