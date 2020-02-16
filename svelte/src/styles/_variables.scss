@@ -20,12 +20,14 @@ $padding: 6px;
 }
 
 .is-success {
-    color: $editor-background !important;
-    background-color: $editor-foreground !important;
+    color: $button-foreground !important;
+    background-color: #22CD22 !important;
 }
 
 .is-danger {
     color: $button-foreground !important;
+    background-color: $red !important;
+
 }
 
 
