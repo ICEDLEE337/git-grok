@@ -1,10 +1,9 @@
 <script>
 import Results from './Results.svelte';
+import Check from './Check.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
 import searchResultStore from '../stores/search-result.store.js';
 import {postMessage} from '../lib/post-message';
-import Card from './Card.svelte';
-
 
 let term = '';
 
@@ -17,20 +16,15 @@ let search = function search() {
 }
 </script>
 
-<style>
-
-</style>
-
 <SearchResultSummary />
 
-<Card>
 <form on:submit={search}>
 <div class="field has-addons">
 	<div class="control is-expanded">
     	<input class="input" type="text" bind:value={term} autofocus/>
 	</div>
 	<div class="control">
-    	<button type="submit" class="button is-primary" on:click={search}>&#10003;</button>
+    	<button type="submit" class="button is-primary" on:click={search}><Check/></button>
 	</div>
 </div>
 </form>
@@ -38,4 +32,3 @@ let search = function search() {
 <div>
     <Results results={$searchResultStore} />
 </div>
-</Card>

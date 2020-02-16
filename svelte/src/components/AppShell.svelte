@@ -1,8 +1,9 @@
 <script>
 import {routerStore} from '../stores/router.store';
+import PanelBlock from './PanelBlock.svelte';
 import Menu from './Menu.svelte';
 import Search from './Search.svelte';
-
+import Telescope from './Telescope.svelte';
 routerStore.set({name: 'Search', component: Search});
 
 </script>
@@ -12,9 +13,6 @@ routerStore.set({name: 'Search', component: Search});
 .shell {
     display: flex;
     flex-direction: column;
-    .menu {
-        padding: $padding;
-    }
 }
 </style>
 
@@ -22,3 +20,5 @@ routerStore.set({name: 'Search', component: Search});
     <div class="menu"><Menu/></div>
     <svelte:component this={$routerStore.component}/>
 </div>
+
+

@@ -1,6 +1,8 @@
 <script>
 
 import {postMessage} from '../lib/post-message';
+import Check from './Check.svelte';
+import Skull from './Skull.svelte';
 const urlRegex = /https:\/\/.*?\..*?\/.*?\/.*?\.git$/;
 let url;
 let error;
@@ -17,12 +19,16 @@ $: valid = url && urlRegex.test(url);
 </script>
 
 <form>
-    <input type="text" bind:value={url} />
-    {#if url}
-        {#if valid}
-            <button type="submit" class="is-primary" on:click={clone}>{label}</button>
-        {:else}
-            {url} is not a valid url
-        {/if}
+<div class="field has-addons">
+  <div class="control">
+    <input type="text" class="input is-expanded" bind:value={url} />
+  </div>
+  <div class="control">
+    {#if valid}
+        <button type="submit" class="button is-success" on:click={clone}><Check/></button>
+    {:else}
+        <button type="submit" class="button is-danger" disabled><Skull /></button>
     {/if}
+  </div>
+</div>
 </form>

@@ -27,7 +27,18 @@ $padding: 6px;
 .is-danger {
     color: $button-foreground !important;
     background-color: $red !important;
+}
 
+.card {
+    color: $editor-foreground !important;
+    background-color: $editor-background !important;
+}
+
+button {
+    border: none !important;
+    color: $editor-foreground !important;
+    background-color: $editor-background !important;
+    border-radius: 0;
 }
 
 

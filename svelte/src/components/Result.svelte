@@ -8,31 +8,35 @@ export let url;
 function openFile () {
     postMessage('openFile', path);
 }
+
+function openDirectory () {
+    postMessage('openDirectory', path);
+}
+
+function openUrl () {
+    postMessage('openUrl', url);
+}
 </script>
 
-<div class="result">
-    <h2><button on:click={openFile}>{name}</button></h2>
-    <h3><a href={url}>{name}</a></h3>
-    <hr />
-    <ul>
-    {#each matchingLines as line}
-        <li>{line}</li>
-    {/each}
-    </ul>
-    <hr />
-    <small>{matchingLines.length} matching lines</small>
+<div class="result card">
+    <header class="card-header">
+        <p class="card-header-title">{name}</p>
+        <i class="card-header-icon is-info">
+            {matchingLines.length}
+        </i>
+    </header>
+    <div class="card-content">
+        <div class="content">
+            <ul>
+                {#each matchingLines as line}
+                    <li>{line}</li>
+                {/each}
+            </ul>
+        </div>
+    </div>
+    <footer class="card-footer">
+        <button class="card-footer-item" on:click={openUrl}>repo</button>
+        <button class="card-footer-item" on:click={openDirectory}>dir</button>
+        <button class="card-footer-item" on:click={openFile}>file</button>
+  </footer>
 </div>
-
-<style>
-    .result {
-        border-radius: 4px;
-        padding: 4px;
-        background-color: var(--vscode-editor-foreground);
-	    color: var(--vscode-editor-background);
-    }
-
-    .result button {
-        background-color: var(--vscode-button-background);
-        color: var(--vscode-button-foreground);
-    }
-</style>

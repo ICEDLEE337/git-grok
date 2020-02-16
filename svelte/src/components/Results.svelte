@@ -5,10 +5,12 @@
 
 <style>
     .results {
-        display: grid;
-		grid-template-columns: repeat(3, 33%);
-
-		grid-gap: 1em;
+        width: 100%;
+        height: 60vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow-y: scroll;
     }
 </style>
 
