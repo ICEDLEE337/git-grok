@@ -12,7 +12,7 @@ function openFile () {
 
 <div class="result">
     <h2><button on:click={openFile}>{name}</button></h2>
-    <h3><a href={url}>{url}</a></h3>
+    <h3><a href={url}>{name}</a></h3>
     <hr />
     <ul>
     {#each matchingLines as line}
