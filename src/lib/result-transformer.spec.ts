@@ -10,6 +10,9 @@ const repo = url;
 const fileNameOne = 'fileNameOne';
 const fileNameTwo = 'fileNameTwo';
 
+const pathOne = 'pathOne';
+const pathTwo = 'pathTwo';
+
 const lineOne = '111: one';
 const lineTwo = '22: two';
 
@@ -18,7 +21,7 @@ describe('ResultTransformer', () => {
     describe('transform', () => {
         it('captures the files containing matches', () => {
             expect(ResultTransformer.transform(getMockMatches(), repo))
-                .toEqual(expect.objectContaining({ fileList: [fileNameOne, fileNameTwo] }));
+                .toEqual(expect.objectContaining({ fileList: [`${pathOne}/${fileNameOne}`, `${pathTwo}/${fileNameTwo}`] }));
         });
 
         it('captures the repo', () => {
@@ -29,8 +32,8 @@ describe('ResultTransformer', () => {
         it('captures the matching lines for each matching file', () => {
             const dir = 'github.com/angular/components';
             const matchesRefined: FileSearchResult[] = [
-                { "matchingLines": ["111: one"], "name": "fileNameOne", url, path: `${dir}/fileNameOne`},
-                { "matchingLines": ["22: two"], "name": "fileNameTwo", url, path: `${dir}/fileNameTwo`}
+                { "matchingLines": ["111: one"], "name": "pathOne/fileNameOne", url, path: `${dir}/pathOne/fileNameOne`},
+                { "matchingLines": ["22: two"], "name": "pathTwo/fileNameTwo", url, path: `${dir}/pathTwo/fileNameTwo`}
             ];
             expect(ResultTransformer.transform(getMockMatches(), repo))
                 .toEqual(expect.objectContaining({ matchesRefined }));
@@ -45,9 +48,9 @@ describe('ResultTransformer', () => {
 });
 
 function getMockMatches() {
-    return `${fileNameOne}
+    return `${pathOne}/${fileNameOne}
 ${lineOne}
 
-${fileNameTwo}
+${pathTwo}/${fileNameTwo}
 ${lineTwo}`;
 }
