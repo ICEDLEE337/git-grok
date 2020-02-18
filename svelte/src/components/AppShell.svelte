@@ -1,24 +1,15 @@
 <script>
+import {onMount} from 'svelte';
 import {routerStore} from '../stores/router.store';
-import PanelBlock from './PanelBlock.svelte';
-import Menu from './Menu.svelte';
-import Search from './Search.svelte';
-import Telescope from './Telescope.svelte';
-routerStore.set({name: 'Search', component: Search});
-
+import SearchPage from './SearchPage.svelte';
+onMount(() => {
+    const defaultComponent = {name: 'Search', component: SearchPage};
+    routerStore.set(defaultComponent);
+});
 </script>
 
 <style type="text/scss">
 @import '../styles/variables.scss';
-.shell {
-    display: flex;
-    flex-direction: column;
-}
 </style>
 
-<div class="shell">
-    <div class="menu"><Menu/></div>
-    <svelte:component this={$routerStore.component}/>
-</div>
-
-
+<svelte:component this={$routerStore.component}/>

@@ -1,4 +1,5 @@
 <script>
+import Logo from './Logo.svelte';
 import Results from './Results.svelte';
 import Check from './Check.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
@@ -16,19 +17,16 @@ let search = function search() {
 }
 </script>
 
-<SearchResultSummary />
-
 <form on:submit={search}>
 <div class="field has-addons">
+	<div class="control">
+    	<Logo />
+	</div>
 	<div class="control is-expanded">
-    	<input class="input" type="text" bind:value={term} autofocus/>
+    	<input class="input is-shadowless" type="text" bind:value={term} autofocus/>
 	</div>
 	<div class="control">
-    	<button type="submit" class="button is-primary" on:click={search}><Check/></button>
+    	<button type="submit" class="button is-primary is-shadowless" on:click={search}><Check/></button>
 	</div>
 </div>
 </form>
-
-<div>
-    <Results results={$searchResultStore} />
-</div>

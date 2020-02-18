@@ -4,20 +4,10 @@
 </script>
 
 <style>
-    .results {
-        width: 100%;
-        height: 60vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow-y: scroll;
-    }
 </style>
 
-<div class="results">
+<div>
     {#each results as result}
-    <div>
         <Result {...result} />
-    </div>
     {/each}
 </div>

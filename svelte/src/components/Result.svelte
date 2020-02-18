@@ -27,11 +27,9 @@ function openUrl () {
     </header>
     <div class="card-content">
         <div class="content">
-            <ul>
-                {#each matchingLines as line}
-                    <li>{line}</li>
-                {/each}
-            </ul>
+            {#each matchingLines as line}
+                <p>{line}</p>
+            {/each}
         </div>
     </div>
     <footer class="card-footer">

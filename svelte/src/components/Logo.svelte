@@ -7,6 +7,7 @@ figure {
 
 .git, .grok {
     margin: 0;
+    font-weight: 900;
 }
 
 .git {
@@ -18,6 +19,6 @@ figure {
 
 <figure>
 <figurecaption>
-<span class="git subtitle">git</span><span class="grok title">Grok</span>
+<span class="git subtitle">git</span><span class="grok title">Grok</span><span class="git subtitle">&gt;</span>
 </figurecaption>
 </figure>
