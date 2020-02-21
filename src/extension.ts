@@ -52,8 +52,12 @@ export function activate(context: vscode.ExtensionContext) {
 			undefined,
 			context.subscriptions
 		);
-
-		panel.webview.html = new SvelteGenerator(vscode, panel, context).getHtml();
+		try {
+			panel.webview.html = new SvelteGenerator(vscode, panel, context).getHtml();
+		}
+		catch (e) {
+			vscode.window.showWarningMessage(e);
+		}
 	});
 
 
