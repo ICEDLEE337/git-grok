@@ -34,7 +34,6 @@ export class ManifestManager {
         } catch (e) {
             return [];
         }
-
     }
 
     private async getManifestPath() {
