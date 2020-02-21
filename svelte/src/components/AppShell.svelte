@@ -2,8 +2,13 @@
 import {onMount} from 'svelte';
 import {routerStore} from '../stores/router.store';
 import SearchPage from './SearchPage.svelte';
+import Clone from './Clone.svelte';
+const routes = {
+    search: {name: 'Search', component: SearchPage},
+    clone: {name: 'Clone a repository', component: Clone},
+};
 onMount(() => {
-    const defaultComponent = {name: 'Search', component: SearchPage};
+    const defaultComponent = routes.search;
     routerStore.set(defaultComponent);
 });
 </script>
