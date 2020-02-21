@@ -4,7 +4,7 @@ export class SvelteGenerator extends GeneratorBase {
     private paths = ['svelte', 'public'];
 
     getHtml(): string {
-        const code = execSync('cat ' + this.asset('bundle.js', this.paths).fsPath).toString();
+        const code = this.extractAssetContent('bundle.js', this.paths);
         const html = `
 <!DOCTYPE html>
 <head>

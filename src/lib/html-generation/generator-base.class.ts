@@ -1,4 +1,5 @@
 import { join } from "path";
+import { execSync } from 'child_process';
 
 export abstract class GeneratorBase {
     constructor(
@@ -6,6 +7,10 @@ export abstract class GeneratorBase {
         protected readonly panel: any,
         protected readonly context: any
     ) {
+    }
+
+    protected extractAssetContent(assetName: string, assetPaths: string[]): string {
+        return execSync('cat ' + this.asset(assetName, assetPaths).fsPath).toString();
     }
 
     protected asset(filenameAndExt: string, paths: string[]) {
