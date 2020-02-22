@@ -9,8 +9,8 @@ export class RepoManager {
 	}
     async clone(url: string) {
         await new ManifestManager().addRepoToManifest(url);
-        const home = await PathManager.getHomeDirectory();
-        const cwd = await this.extractDirToConeInFromUrl(url, home);
+        const home = PathManager.getHomeDirectory();
+        const cwd = this.extractDirToConeInFromUrl(url, home);
         execSync(`mkdir -p ${cwd}`, { encoding: 'utf8'});
         execSync(`git clone ${url}`, { encoding: 'utf8', cwd});
     }
