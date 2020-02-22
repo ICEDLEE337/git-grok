@@ -8,6 +8,9 @@
 
 <div>
     {#each results as result}
+        {result.repo}
+        {result.path}
+        {result.matches.length}
         <Result {...result} />
     {/each}
 </div>

@@ -6,8 +6,10 @@ export default class Handler {
     constructor () {
         this.console = new Console();
         this.handlers = {
-            searchResult: list => searchResultStore.update(old => old.concat(list)),
-            repoList: list => repoListStore.set(list)
+            repoList: list => repoListStore.set(list),
+            searchResult: newResults => searchResultStore.update(oldResults =>
+                Object.assign(oldResults, newResults)
+            )
         };
         this.listenToVsCode();
     }

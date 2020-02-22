@@ -9,21 +9,24 @@ export default class ResultTransformer {
         const result: RepoSearchResult = {
             repo,
             path: repo.replace('https://', '').replace('.git', ''),
-            matches: [],
+            matches: {},
             fileList: [],
             lineCount: 0
         };
 
-        result.matches = matches.split('\n\n')
+        matches.split('\n\n')
         .map(this.splitFileChunk)
         .map(f => {
             result.lineCount += f.lines.length;
             f.path = result.path + '/' + f.name;
+            result.fileList.push(f.path);
             Object.assign(f, parse(f.path));
             return f;
+        })
+        .forEach(r => {
+            result.matches[r.path] = r;
         });
 
-        result.fileList = _.map(result.matches, 'name');
 
         return result;
     }

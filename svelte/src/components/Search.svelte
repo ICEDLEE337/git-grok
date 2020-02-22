@@ -12,7 +12,7 @@ let search = function search() {
 	if (!term.trim().length) {
 		return;
 	}
-	searchResultStore.set([]);
+	searchResultStore.set({});
 	postMessage('search', term);
 }
 </script>

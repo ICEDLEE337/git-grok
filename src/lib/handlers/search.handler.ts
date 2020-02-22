@@ -12,13 +12,12 @@ export const searchHandler = (payload: string, vscode: any, postMessage: any) =>
         .then((home) => {
             list.forEach(repo => {
                 const cwd = rm.extractProjectDirFromUrl(repo, home);
-                vscode.window.showErrorMessage(cwd);
-
                 exec(`git grep --break --heading --line-number -n -F -- "${payload}"`, { cwd }, (err, commandResult) => {
                     if (err) {
                         vscode.window.showErrorMessage(err.message);
                     } else {
                         const searchResult = ResultTransformer.transform(commandResult.toString(), repo);
+                        vscode.window.showErrorMessage(JSON.stringify(searchResult, null, 1));
                         searchResult.matches && searchResult.matches.length && postMessage('searchResult', searchResult);
                     }
                 });
