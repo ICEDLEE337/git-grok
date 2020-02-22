@@ -5,13 +5,11 @@ import ResultTransformer from "../result-transformer";
 
 export const searchHandler = (payload: string, vscode: any, postMessage: any) => {
     let list: string[];
-    let home: string;
     const rm = new RepoManager();
     rm.getRepoList()
         .then(rl => { list = rl; })
         .then(() => PathManager.getHomeDirectory())
-        .then((h) => { home = h; })
-        .then(() => {
+        .then((home) => {
             list.forEach(repo => {
                 const cwd = rm.extractProjectDirFromUrl(repo, home);
                 vscode.window.showErrorMessage(cwd);
@@ -20,11 +18,8 @@ export const searchHandler = (payload: string, vscode: any, postMessage: any) =>
                     if (err) {
                         vscode.window.showErrorMessage(err.message);
                     } else {
-                        [commandResult].forEach(src => {
-                            const searchResult = ResultTransformer.transform(src.toString(), repo);
-                            vscode.window.showErrorMessage(searchResult.matchesRefined.length);
-                            searchResult.matchesRefined && searchResult.matchesRefined.length && postMessage('searchResult', searchResult.matchesRefined);
-                        });
+                        const searchResult = ResultTransformer.transform(commandResult.toString(), repo);
+                        searchResult.matches && searchResult.matches.length && postMessage('searchResult', searchResult);
                     }
                 });
             });

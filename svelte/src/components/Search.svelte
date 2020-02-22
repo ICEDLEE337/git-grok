@@ -23,6 +23,7 @@ let search = function search() {
     	<Logo />
 	</div>
 	<div class="control is-expanded">
+		<!-- svelte-ignore a11y-autofocus -->
     	<input class="input is-shadowless" type="text" bind:value={term} autofocus/>
 	</div>
 	<div class="control">

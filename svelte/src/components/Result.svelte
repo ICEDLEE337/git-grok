@@ -1,12 +1,14 @@
 <script>
 import {postMessage} from '../lib/post-message';
-export let matchingLines;
-export let name;
+export let fileList;
+export let matches;
 export let path;
-export let url;
+export let repo;
+export let lineCount;
+let activeMatch;
 
-function openFile () {
-    postMessage('openFile', path);
+function openFile (p) {
+    postMessage('openFile', p);
 }
 
 function openDirectory () {
@@ -14,27 +16,44 @@ function openDirectory () {
 }
 
 function openUrl () {
-    postMessage('openUrl', url);
+    postMessage('openUrl', repo);
 }
-</script>
 
-<div class="result card">
-    <header class="card-header">
-        <p class="card-header-title">{name}</p>
-        <i class="card-header-icon is-info">
-            {matchingLines.length}
-        </i>
-    </header>
-    <div class="card-content">
-        <div class="content">
-            {#each matchingLines as line}
-                <p>{line}</p>
-            {/each}
-        </div>
-    </div>
-    <footer class="card-footer">
-        <button class="card-footer-item" on:click={openUrl}>repo</button>
-        <button class="card-footer-item" on:click={openDirectory}>dir</button>
-        <button class="card-footer-item" on:click={openFile}>file</button>
-  </footer>
-</div>
+$: activeMatches = matches.filter(m => !activeMatch || m.path === activeMatch)
+
+</script>
+<style type="text/scss">
+    .pinned {
+        position: absolute;
+
+        &.is-right {
+            right: 1em;
+        }
+    }
+</style>
+<!-- svelte-ignore a11y-missing-attribute -->
+<nav class="panel">
+  <p class="panel-heading">
+    <span>{path}</span>
+    <span class="is-right pinned">
+        <span class="tag is-info is-rounded">
+        files: {fileList.length}
+        </span>
+        <span class="tag is-info is-rounded">
+        lines: {lineCount}
+        </span>
+    </span>
+  </p>
+
+  <p class="panel-tabs" style="overflow-x: scroll;">
+    {#each fileList as fileName}
+      <a on:click="{()=>{activeMatch = fileName}}">{fileName}</a>
+    {/each}
+  </p>
+
+  <div class="panel-block">
+    <button class="button is-link is-outlined is-fullwidth">
+      Reset all filters
+    </button>
+  </div>
+</nav>

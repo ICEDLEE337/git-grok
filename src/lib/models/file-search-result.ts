@@ -1,7 +1,6 @@
-export default interface FileSearchResult {
-    name: string;
+import { ParsedPath } from "path";
+
+export default interface FileSearchResult extends ParsedPath{
     path: string;
-    ref?: string;
-    matchingLines: Array<string>,
-    url: string;
+    lines: Array<string>,
 }

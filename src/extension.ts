@@ -2,12 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { RepoManager } from './lib/repo-manager';
-import { openFileHandler } from './lib/handlers/open-file.handler';
+import { openFolderHandler } from './lib/handlers/open-folder.handler';
 import { cloneHandler } from './lib/handlers/clone.handler';
 import { searchHandler } from './lib/handlers/search.handler';
 import { SvelteGenerator } from './lib/html-generation/svelte-generator.class';
-import { AngularGenerator } from './lib/html-generation/angular-generator.class';
-import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -32,7 +30,8 @@ export function activate(context: vscode.ExtensionContext) {
 						searchHandler(payload, vscode, postMessage);
 						return;
 					case 'openFile':
-						openFileHandler(payload, vscode);
+					case 'openFolder':
+						openFolderHandler(payload, vscode);
 						return;
 					case 'clone':
 						cloneHandler(payload, vscode);
