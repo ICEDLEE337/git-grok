@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 			'GitGrok',
 			vscode.ViewColumn.One,
 			{ enableScripts: true,
-				localResourceRoots: [vscode.Uri.file(join(context.extensionPath, 'ng', 'dist', 'ng'))]
+				// localResourceRoots: [vscode.Uri.file(join(context.extensionPath, 'ng', 'dist', 'ng'))]
 			 }
 		);
 
@@ -58,11 +58,10 @@ export function activate(context: vscode.ExtensionContext) {
 		);
 		try {
 			const html = new SvelteGenerator(vscode, panel, context).getHtml();
-			vscode.window.showInformationMessage(html);
 			panel.webview.html = html;
 		}
 		catch (e) {
-			vscode.window.showWarningMessage(e.message);
+			vscode.window.showErrorMessage(e.message);
 		}
 	});
 
