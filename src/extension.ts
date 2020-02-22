@@ -57,7 +57,7 @@ export function activate(context: vscode.ExtensionContext) {
 			context.subscriptions
 		);
 		try {
-			const html = new AngularGenerator(vscode, panel, context).getHtml();
+			const html = new SvelteGenerator(vscode, panel, context).getHtml();
 			vscode.window.showInformationMessage(html);
 			panel.webview.html = html;
 		}
