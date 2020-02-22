@@ -6,6 +6,8 @@ import { openFileHandler } from './lib/handlers/open-file.handler';
 import { cloneHandler } from './lib/handlers/clone.handler';
 import { searchHandler } from './lib/handlers/search.handler';
 import { SvelteGenerator } from './lib/html-generation/svelte-generator.class';
+import { AngularGenerator } from './lib/html-generation/angular-generator.class';
+import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
 
@@ -14,7 +16,9 @@ export function activate(context: vscode.ExtensionContext) {
 			'gitgrok',
 			'GitGrok',
 			vscode.ViewColumn.One,
-			{ enableScripts: true }
+			{ enableScripts: true,
+				localResourceRoots: [vscode.Uri.file(join(context.extensionPath, 'ng', 'dist', 'ng'))]
+			 }
 		);
 
 		panel.webview.onDidReceiveMessage(
@@ -53,10 +57,12 @@ export function activate(context: vscode.ExtensionContext) {
 			context.subscriptions
 		);
 		try {
-			panel.webview.html = new SvelteGenerator(vscode, panel, context).getHtml();
+			const html = new AngularGenerator(vscode, panel, context).getHtml();
+			vscode.window.showInformationMessage(html);
+			panel.webview.html = html;
 		}
 		catch (e) {
-			vscode.window.showWarningMessage(e);
+			vscode.window.showWarningMessage(e.message);
 		}
 	});
 

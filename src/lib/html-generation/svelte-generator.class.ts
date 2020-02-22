@@ -1,10 +1,10 @@
 import { GeneratorBase } from './generator-base.class';
 import { execSync } from 'child_process';
 export class SvelteGenerator extends GeneratorBase {
-    private paths = ['svelte', 'public'];
+    getAssetPaths() { return ['svelte', 'public']; }
 
     getHtml(): string {
-        const code = this.extractAssetContent('bundle.js', this.paths);
+        const code = this.extractAssetContent('bundle.js');
         const html = `
 <!DOCTYPE html>
 <head>
@@ -12,8 +12,8 @@ export class SvelteGenerator extends GeneratorBase {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>gitgrok</title>
 
-        <link rel="stylesheet" href="${this.asset('global.css', this.paths)}">
-        <link rel="stylesheet" href="${this.asset('bundle.css', this.paths)}">
+        <link rel="stylesheet" href="${this.asWebviewUri('global.css')}">
+        <link rel="stylesheet" href="${this.asWebviewUri('bundle.css')}">
         </head>
 
         <body>

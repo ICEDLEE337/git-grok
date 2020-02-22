@@ -9,16 +9,23 @@ export abstract class GeneratorBase {
     ) {
     }
 
-    protected extractAssetContent(assetName: string, assetPaths: string[]): string {
-        return execSync('cat ' + this.asset(assetName, assetPaths).fsPath).toString();
+    protected log (msg: any) {
+        this.vscode.window.showWarningMessage(msg);
     }
 
-    protected asset(filenameAndExt: string, paths: string[]) {
+    protected extractAssetContent(assetName: string): string {
+        const {fsPath} = this.asWebviewUri(assetName);
+        const content = execSync(`cat ${fsPath}`).toString();
+        return content;
+    }
+
+    protected asWebviewUri(filenameAndExt: string) {
         const onDiskPath = this.vscode.Uri.file(
-            join(this.context.extensionPath, ...paths, filenameAndExt)
+            join(this.context.extensionPath, ...this.getAssetPaths(), filenameAndExt)
         );
         return this.panel.webview.asWebviewUri(onDiskPath);
     }
 
     abstract getHtml(): string;
+    abstract getAssetPaths(): string[];
 }
