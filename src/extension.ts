@@ -6,6 +6,7 @@ import { openFolderHandler } from './lib/handlers/open-folder.handler';
 import { cloneHandler } from './lib/handlers/clone.handler';
 import { searchHandler } from './lib/handlers/search.handler';
 import { SvelteGenerator } from './lib/html-generation/svelte-generator.class';
+// import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
 

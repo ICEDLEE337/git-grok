@@ -17,7 +17,9 @@ export class SvelteGenerator extends GeneratorBase {
         </head>
 
         <body>
+        <pre id="gitgrok"></pre>
         <script>window.vscode = acquireVsCodeApi();</script>
+        <script>const gg = window.gitgrok; window.addEventListener('error', e => gg.innerText += '\n\n\n' + e.message + '\n' + e.stackTrace)</script>
         <script>${code}</script>
     </body>
     </html>
