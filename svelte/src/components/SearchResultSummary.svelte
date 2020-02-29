@@ -1,5 +1,13 @@
 <script>
-import searchResultStore from '../stores/search-result.store';
+import {repoResultStore} from '../stores/search-result.store';
+
 </script>
 
-<h2>{$searchResultStore.length} total results</h2>
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p class="heading">Repos</p>
+      <p class="title">{$repoResultStore.length}</p>
+    </div>
+  </div>
+</nav>

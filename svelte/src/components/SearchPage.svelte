@@ -1,6 +1,7 @@
 <script>
 import Results from '../components/Results.svelte';
 import Search from '../components/Search.svelte';
+import SearchResultSummary from '../components/SearchResultSummary.svelte';
 import {normalizedSearchResultStore} from '../stores/search-result.store';
 import searchResultStore from '../stores/search-result.store';
 </script>
@@ -11,11 +12,12 @@ import searchResultStore from '../stores/search-result.store';
 }
 .results {
   width: 100%;
-  height: 90vh;
+  min-height: 90vh;
 }
 </style>
 
 <div class="search"><Search /></div>
 {$normalizedSearchResultStore.length}
 {$searchResultStore.length}
+<SearchResultSummary></SearchResultSummary>
 <div class="results"><Results results={$normalizedSearchResultStore} /></div>

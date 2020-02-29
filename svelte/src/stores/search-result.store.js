@@ -4,7 +4,12 @@ const searchResultStore = writable([]);
 export default searchResultStore;
 
 export const normalizedSearchResultStore = derived(searchResultStore, ($s, set) => {
-    set(condense($s));
+    set(toArray(condense($s)));
+});
+
+
+export const repoResultStore = derived(normalizedSearchResultStore, ($s, set) => {
+    set(extractRepos($s));
 });
 
 function condense(results) {
@@ -12,7 +17,7 @@ function condense(results) {
     results.forEach(r => {
         outputMap[r.repo] = r;
     });
-    return toArray(outputMap);
+    return outputMap;
 }
 
 function toArray(outputMap) {
@@ -21,4 +26,8 @@ function toArray(outputMap) {
         output.push(outputMap[k]);
     });
     return output;
+}
+
+function extractRepos(array) {
+    return Object.keys(condense(array));
 }
