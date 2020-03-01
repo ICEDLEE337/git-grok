@@ -3,7 +3,7 @@ import Logo from './Logo.svelte';
 import Results from './Results.svelte';
 import Check from './Check.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
-import searchResultStore from '../stores/search-result.store.js';
+
 import {postMessage} from '../lib/post-message';
 
 let term = '';
@@ -12,7 +12,6 @@ let search = function search() {
 	if (!term.trim().length) {
 		return;
 	}
-	searchResultStore.set([]);
 	postMessage('search', term);
 }
 </script>

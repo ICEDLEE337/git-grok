@@ -2,11 +2,15 @@ import Console from './lib/console.js';
 import searchResultStore from './stores/search-result.store.js';
 import repoListStore from './stores/repo-list.store.js';
 
+import queryStore from '../stores/query.store.js';
 export default class Handler {
     constructor () {
         this.console = new Console();
         this.handlers = {
-            searchResult: list => searchResultStore.update(old => old.concat(list)),
+            searchResult: list => {
+searchResultStore.set([]);
+	queryStore.update(($q, set) => set($q, .)
+                searchResultStore.update(old => old.concat(list))},
             repoList: list => repoListStore.set(list)
         };
         this.listenToVsCode();
