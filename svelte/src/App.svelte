@@ -18,6 +18,7 @@ new Handler();
 </style>
 
 <svelte:head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style src="./styles/_variables.scss"></style>
 </svelte:head>
 

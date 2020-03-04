@@ -1,4 +1,5 @@
 <script>
+import Icon from './Icon.svelte';
 import {onMount} from 'svelte';
 import {routerStore} from '../stores/router.store';
 import SearchPage from './SearchPage.svelte';
@@ -19,4 +20,5 @@ onMount(() => {
 @import '../styles/variables.scss';
 </style>
 
+<Icon name="face"></Icon>
 <svelte:component this={$routerStore.component}/>

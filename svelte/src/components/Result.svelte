@@ -51,7 +51,7 @@ function openUrl () {
   </p>
 
   <!-- <div class="panel-block">
-    <button class="button is-link is-outlined is-fullwidth">
+    <button class="button is-link is-outlined is-fullwidth">cd
       Reset all filters
     </button>
   </div> -->
