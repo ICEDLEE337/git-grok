@@ -19,8 +19,6 @@ function openUrl () {
     postMessage('openUrl', repo);
 }
 
-$: activeMatches = matches.filter(m => !activeMatch || m.path === activeMatch)
-
 </script>
 <style type="text/scss">
     .pinned {
@@ -46,14 +44,24 @@ $: activeMatches = matches.filter(m => !activeMatch || m.path === activeMatch)
   </p>
 
   <p class="panel-tabs" style="overflow-x: scroll;">
+    <a class={{'is-primary': !activeMatch}} on:click="{()=>{activeMatch = null}}">all</a>
     {#each fileList as fileName}
-      <a on:click="{()=>{activeMatch = fileName}}">{fileName}</a>
+      <a class={{'is-primary': fileName == activeMatch}} on:click="{()=>{activeMatch = fileName}}">{fileName}</a>
     {/each}
   </p>
 
-  <div class="panel-block">
+  <!-- <div class="panel-block">
     <button class="button is-link is-outlined is-fullwidth">
       Reset all filters
     </button>
-  </div>
+  </div> -->
+  {#each matches as am}
+    <!-- {Object.keys(am).sort().join(' ')} -->
+    {#if am.name == activeMatch || !activeMatch}
+        {#if !activeMatch}<label>{am.name}</label>{/if}
+        {#each am.lines as l}
+            <label><code class="is-primary">{l}</code></label>
+        {/each}
+    {/if}
+  {/each}
 </nav>
