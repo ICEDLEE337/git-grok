@@ -4,6 +4,7 @@
   import { postMessage } from "../lib/post-message";
   import Check from "./Check.svelte";
   import Clone from "./Clone.svelte";
+  import Icon from "./Icon.svelte";
   import { fly } from "svelte/transition";
   let active = "filtered";
   let filter = "";
@@ -24,24 +25,24 @@
         placeholder="search"
         bind:value={filter} />
       <span class="icon is-small is-left">
-        <i class="fas fa-search" aria-hidden="true" />
+        <Icon name="search" />
       </span>
     </p>
   </div>
   <p class="panel-tabs">
-    <a class="is-active" on:click={() => (active = 'filtered')}>
+    <button class="is-active" on:click={() => (active = 'filtered')}>
       {filter || 'filtered'}
-    </a>
+    </button>
     {#if filter}
-      <a class="is-active" on:click={() => (active = 'all')}>all</a>
+      <button class="is-active" on:click={() => (active = 'all')}>all</button>
     {/if}
-    <a class="is-active" on:click={() => (active = 'add')}>add</a>
+    <button class="is-active" on:click={() => (active = 'add')}>add</button>
   </p>
   {#if active == 'all'}
     <div in:fly="{{ x: 200, duration: 200 }}" out:fly="{{x: -200, duration: 200}}">
       {#each $repoListStore as repo}
         <div class="panel-block is-active">
-          <a href={repo}>{repo}</a>
+          <button href={repo}>{repo}</button>
         </div>
       {/each}
     </div>
@@ -51,7 +52,7 @@
       {#each $repoListStore as repo}
         {#if repo.includes((filter || '').toLowerCase())}
           <div class="panel-block is-active">
-            <a href={repo}>{repo}</a>
+            <button href={repo}>{repo}</button>
           </div>
         {/if}
       {/each}

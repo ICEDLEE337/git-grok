@@ -17,7 +17,7 @@ onMount(() => {
 </script>
 
 <style type="text/scss">
-@import '../styles/variables.scss';
+@import '../styles/index.scss';
 </style>
 
 <Icon name="face"></Icon>

@@ -1,68 +1,9 @@
-@charset 'utf-8';
 $red: #ee2222;
 $radius: 0;
-@import '../node_modules/bulma/bulma.sass';
+
 $editor-foreground: var(--vscode-editor-foreground);
 $editor-background: var(--vscode-editor-background);
 $button-foreground: var(--vscode-button-foreground);
 $button-background: var(--vscode-button-background);
-$padding: 6px;
-
-.is-primary {
-    color: $button-foreground !important;
-    background-color: $button-background !important;
-}
-
-.is-info {
-    border: solid 1px $editor-foreground !important;
-    color: $editor-foreground !important;
-    background-color: $editor-background !important;
-}
-
-.is-success {
-    color: $button-foreground !important;
-    background-color: #22CD22 !important;
-}
-
-.is-danger {
-    color: $button-foreground !important;
-    background-color: $red !important;
-}
-
-.card {
-    color: $editor-foreground !important;
-    background-color: $editor-background !important;
-}
-
-button {
-    border: none !important;
-    color: $editor-foreground !important;
-    background-color: $editor-background !important;
-    border-radius: 0;
-}
-
-input {
-    background-color: $editor-background !important;
-    color: $editor-foreground !important;
-    border-color: $editor-foreground !important;
-    border-top-style: none !important;
-    border-left-style: none !important;
-    border-right-style: none !important;
-
-    &:active, &:focus {
-        border-color: $button-foreground !important;
-        border-top-style: none !important;
-        border-left-style: none !important;
-        border-right-style: none !important;
-    }
-}
-
-.card {
-    .card-header {
-        background-color: $button-background !important;
-        color: $editor-foreground !important;
-    }
-}
-
-
-    // https://code.visualstudio.com/api/references/theme-color
+$padding: 1em;
+$radius: 0;

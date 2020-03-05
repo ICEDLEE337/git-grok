@@ -1,0 +1,11 @@
+@charset 'utf-8';
+@import 'variables';
+@import 'colors';
+
+.button {
+    padding: $padding;
+    border: none !important;
+    color: $editor-foreground !important;
+    background-color: $editor-background !important;
+    border-radius: $radius;
+}

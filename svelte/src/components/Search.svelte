@@ -1,5 +1,6 @@
 <script>
 import Logo from './Logo.svelte';
+import Icon from './Icon.svelte';
 import Results from './Results.svelte';
 import Check from './Check.svelte';
 import SearchResultSummary from './SearchResultSummary.svelte';
@@ -17,6 +18,10 @@ let search = function search() {
 }
 </script>
 
+<style type="text/scss">
+@import '../styles/index.scss';
+</style>
+
 <form on:submit={search}>
 <div class="field has-addons">
 	<div class="control">
@@ -27,7 +32,7 @@ let search = function search() {
     	<input class="input is-shadowless" type="text" bind:value={term} autofocus/>
 	</div>
 	<div class="control">
-    	<button type="submit" class="button is-primary is-shadowless" on:click={search}><Check/></button>
+    	<button type="submit" class="button is-primary is-shadowless" on:click={search}><Icon name="face" /></button>
 	</div>
 </div>
 </form>
