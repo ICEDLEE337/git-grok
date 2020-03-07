@@ -26,5 +26,5 @@ let search = function search() {
 <form class="row" on:submit={search}>
 	<!-- svelte-ignore a11y-autofocus -->
 	<input class="input" type="text" bind:value={term} autofocus/>
-	<button type="submit" class="button" on:click={search}><Icon name="search" /></button>
+	<button type="submit" class="button is-primary" on:click={search}><Icon name="search" /></button>
 </form>

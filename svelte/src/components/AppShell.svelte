@@ -3,6 +3,7 @@ import Icon from './Icon.svelte';
 import {onMount} from 'svelte';
 import {routerStore} from '../stores/router.store';
 import SearchPage from './SearchPage.svelte';
+import HeaderBar from './HeaderBar.svelte';
 import Search from './Search.svelte';
 import Logo from './Logo.svelte';
 import Clone from './Clone.svelte';
@@ -50,6 +51,7 @@ function navigate (route) {
     width: 100%;
 }
 </style>
+<HeaderBar></HeaderBar>
 <div class="shell column">
     <div class="row menu">
         <button class="button">
