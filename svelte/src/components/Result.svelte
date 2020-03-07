@@ -22,11 +22,8 @@ function openUrl () {
 </script>
 <style type="text/scss">
 @import '../styles/index.scss';
-.result, .panel-tabs{
-  padding: $padding;
-}
-
 .panel-tabs {
+  padding: $padding;
   overflow-x: scroll;
   display: flex;
   justify-content: space-between;
@@ -38,11 +35,11 @@ code {
 }
 </style>
 
-<span class="result">
-  <p class="panel-heading font-accent">
+<span class="card">
+  <p class="card-title">
     <span>{path}</span>
   </p>
-  <p>
+  <p class="card-subtitle">
     <span class="is-right pinned">
         <span class="tag is-info is-rounded">
         files: {fileList.length}
@@ -63,9 +60,11 @@ code {
   {#each matches as am}
     {#if am.name == activeMatch || !activeMatch}
         {#if !activeMatch}<label>{am.name}</label><br />{/if}
-        {#each am.lines as l}
-            <code>{l}</code><br />
-        {/each}
+        <div class="fxc">
+          {#each am.lines as l}
+              <div><code>{l}</code></div>
+          {/each}
+        </div>
       <hr/>
     {/if}
   {/each}

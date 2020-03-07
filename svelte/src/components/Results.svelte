@@ -7,7 +7,7 @@
 @import "../styles/index.scss";
 </style>
 
-<div class="results">
+<div class="results fxc">
     {#each results as result}
     <div class="result">
         <Result {...result} />

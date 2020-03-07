@@ -1,6 +1,5 @@
 @charset 'utf-8';
-@import 'variables';
-@import 'colors';
+@import '../core';
 
 .input {
     padding: $padding;

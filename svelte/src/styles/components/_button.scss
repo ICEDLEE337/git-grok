@@ -1,14 +1,13 @@
 @charset 'utf-8';
-@import 'variables';
-@import 'colors';
+@import '../core';
 
 .button {
     padding: $padding;
-    color: $editor-foreground !important;
-    background-color: $editor-background !important;
+    background-color: transparent !important;
     border: none !important;
 
     &:active, &:focus, &:hover {
         border: none !important;
+        outline: none !important;
     }
 }

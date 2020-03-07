@@ -1,0 +1,50 @@
+@charset 'utf-8';
+@import  '../variables';
+
+.is-primary {
+    color: $button-foreground !important;
+    background-color: $button-background !important;
+}
+
+.is-info {
+    color: $editor-foreground !important;
+    background-color: $editor-background !important;
+}
+
+.is-success {
+    color: $button-foreground !important;
+    background-color: #22CD22 !important;
+}
+
+.is-danger {
+    color: $button-foreground !important;
+    background-color: $red !important;
+}
+
+
+.subtle {
+    color: $input-placeholder-foreground;
+}
+
+.font-brand, .font-accent {
+    font-weight: 900;
+}
+
+.font-brand {
+    font-style: italic;
+    // color: $button-background;
+    color: var(--vscode-activity-bar-background);
+}
+
+.font-accent {
+    color: var(--vscode-button-background);
+}
+
+body {
+    background-color: $editor-background !important;
+    color: $editor-foreground !important;
+    font-family: var(--vscode-font-family);
+	font-weight: var(--vscode-font-weight);
+    font-size: var(--vscode-font-size);
+    max-width: 98%;
+}

@@ -1,0 +1,80 @@
+@charset 'utf-8';
+
+.fx {
+    display: flex;
+}
+
+.fxc {
+    @extend .fx;
+    align-content: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.fxr {
+    @extend .fx;
+    flex-direction: row;
+}
+
+.fxcw {
+    @extend .fxc;
+    flex-wrap: wrap;
+}
+
+.fxrw {
+    @extend .fxr;
+    flex-wrap: wrap;
+}
+
+.fxcwr {
+    @extend .fxc;
+    flex-wrap: wrap-reverse;
+}
+
+.fxrwr {
+    @extend .fxr;
+    flex-wrap: wrap-reverse;
+}
+
+.fxi {
+    flex: initial;
+}
+
+.fx1 {
+    flex: 1;
+}
+
+.fx2 {
+    flex: 2;
+}
+
+.fx3 {
+    flex: 3;
+}
+.fx4 {
+    flex: 4;
+}
+.fx5 {
+    flex: 5;
+}
+.fx6 {
+    flex: 6;
+}
+.fx7 {
+    flex: 7;
+}
+.fx8 {
+    flex: 8;
+}
+.fx9 {
+    flex: 9;
+}
+.fx10 {
+    flex: 10;
+}
+.fx11 {
+    flex: 11;
+}
+.fx12 {
+    flex: 12;
+}

@@ -1,0 +1,20 @@
+@charset 'utf-8';
+@import '../core';
+
+.card {
+    background-color: $editor-background;
+    color: $editor-foreground;
+    padding: $padding;
+    box-shadow: 4px 4px 4px 1px rgba(0, 0, 0, 0.2);
+    border: solid 1px $editor-foreground;
+    display: block;
+    margin: $padding auto;
+
+    .card-title {
+        @extend .font-brand;
+    }
+
+    .card-subtitle {
+        @extend .font-accent;
+    }
+}
