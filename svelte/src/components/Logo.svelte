@@ -2,30 +2,27 @@
 @import '../styles/index.scss';
 
 .git, .grok {
-    font-size: 1.6em;
-    margin: 0;
+    font-size: 1.96em;
+
 }
 
 .git {
-    font-size: 1.2em;
+    font-size: 1.5em;
 }
 
-span {
-    justify-items: baseline;
-    display: flex;
-    flex-direction: row;
-    align-content: flex-end;
-    align-items: baseline;
+.logo {
+    display: inline-block;
+    height: 100%;
 
-    & > * {
-        padding: 0;
-        margin: 0;
-        vertical-align: 0px;
+    .text {
+        margin: auto 0;
     }
 }
 
 </style>
 
-<span>
+<span class="logo">
+<div class="text">
     <span class="git font-accent">g1t</span><span class="grok font-brand">Gr0k</span><span class="git font-accent">&gt;</span>
+</div>
 </span>

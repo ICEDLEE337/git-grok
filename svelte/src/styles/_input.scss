@@ -4,7 +4,10 @@
 
 .input {
     padding: $padding;
-    background-color: $input-background !important;
+    background-color: transparent !important;
     color: $input-foreground !important;
-    border-bottom: solid 1px $button-background !important;
+    border: none !important;
+    border: none 1px $button-background !important;
+    border-bottom-style: solid !important;
+    width: 100%;
 }

@@ -22,11 +22,27 @@ function openUrl () {
 </script>
 <style type="text/scss">
 @import '../styles/index.scss';
+.result, .panel-tabs{
+  padding: $padding;
+}
+
+.panel-tabs {
+  overflow-x: scroll;
+  display: flex;
+  justify-content: space-between;
+
+}
+
+code {
+  max-width: 100%;
+}
 </style>
-<!-- svelte-ignore a11y-missing-attribute -->
-<span class="result card">
-  <p class="panel-heading">
+
+<span class="result">
+  <p class="panel-heading font-accent">
     <span>{path}</span>
+  </p>
+  <p>
     <span class="is-right pinned">
         <span class="tag is-info is-rounded">
         files: {fileList.length}
@@ -38,24 +54,19 @@ function openUrl () {
   </p>
 
   <p class="panel-tabs">
-    <a class={{'is-primary': !activeMatch}} on:click="{()=>{activeMatch = null}}">all</a>
+    <button class="button" class:is-primary={!activeMatch} on:click="{()=>{activeMatch = null}}">all</button>
     {#each fileList as fileName}
-      <a class={{'is-primary': fileName == activeMatch}} on:click="{()=>{activeMatch = fileName}}">{fileName}</a>
+      <button class="button" class:is-primary={fileName == activeMatch} on:click="{()=>{activeMatch = fileName}}">{fileName}</button>
     {/each}
   </p>
 
-  <!-- <div class="panel-block">
-    <button class="button is-link is-outlined is-fullwidth">cd
-      Reset all filters
-    </button>
-  </div> -->
   {#each matches as am}
-    <!-- {Object.keys(am).sort().join(' ')} -->
     {#if am.name == activeMatch || !activeMatch}
-        {#if !activeMatch}<label>{am.name}</label>{/if}
+        {#if !activeMatch}<label>{am.name}</label><br />{/if}
         {#each am.lines as l}
-            <label><code class="is-primary">{l}</code></label>
+            <code>{l}</code><br />
         {/each}
+      <hr/>
     {/if}
   {/each}
 </span>

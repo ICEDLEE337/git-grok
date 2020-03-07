@@ -3,11 +3,14 @@
     export let results;
 </script>
 
-<style>
+<style type="text/scss">
+@import "../styles/index.scss";
 </style>
 
-<div>
+<div class="results">
     {#each results as result}
+    <div class="result">
         <Result {...result} />
+    </div>
     {/each}
 </div>

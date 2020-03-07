@@ -32,28 +32,14 @@ function navigate (route) {
     width: 100% !important;
     padding: 0;
     margin: 0;
-    height: 100vh;
 }
 
-.menu {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    max-height: 15vh;
-    z-index: 100;
-    border-bottom: solid 1px $editor-foreground !important;
-    background-color: $editor-background;
-}
-
-.body {
-    overflow-y: scroll;
-    height: 100%;
-    width: 100%;
-}
 </style>
-<HeaderBar></HeaderBar>
-<div class="shell column">
-    <div class="row menu">
+<div class="shell">
+<div class="header">
+    <HeaderBar></HeaderBar>
+</div>
+    <!-- <div class="row menu">
         <button class="button">
             <section class="row">
                 <Logo />
@@ -74,10 +60,10 @@ function navigate (route) {
             <svelte:component this={$routerStore.head}/>
         {/if}
 
-    </div>
-    <div class="row body">
+    </div> -->
         {#if $routerStore.body}
-            <svelte:component this={$routerStore.body}/>
+            <div class="outlet">
+                <svelte:component this={$routerStore.body}/>
+            </div>
         {/if}
-    </div>
 </div>

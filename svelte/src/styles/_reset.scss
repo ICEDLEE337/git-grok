@@ -52,23 +52,3 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
-a, b, body, checkbox, div, figure, figurecaption, form, h1, h2, h3, h4, h5, h6, i, input, label, ol, option, p, section, select, span, textarea, ul {
-    padding: $padding;
-    margin: auto;
-    border: none !important;
-    width: 100%;
-    display: inline-block;
-
-    &:focus, &:active, &:hover {
-        outline: none;
-    }
-}
-
-body {
-    padding: 0 !important;
-    margin: 0 !important;
-    width: 100%;
-    max-width: 100%;
-}

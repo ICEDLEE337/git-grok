@@ -1,24 +1,16 @@
 @charset 'utf-8';
 @import "reset";
+@import "layout";
 @import "variables";
 @import "colors";
 @import "button";
 @import "card";
 @import "input";
 
-.row, .column {
-    display: flex !important;
-    justify-content: stretch !important;
-    align-content: flex-start !important;
-    align-items: flex-start !important;
-}
-
-.row {
-    flex-direction: row;
-}
-
-.column {
-    flex-direction: column;
+.dot-dot-dot {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 .center {
@@ -38,13 +30,13 @@
 }
 
 .font-brand {
-    font-family: 'Major Mono Display';
+    font-style: italic;
     // color: $button-background;
     color: var(--vscode-activity-bar-background);
 }
 
 .font-accent {
-     font-family: 'Anonymous Pro';
+    color: var(--vscode-button-background);
 }
 
 body {
@@ -52,5 +44,6 @@ body {
     color: $editor-foreground !important;
     font-family: var(--vscode-font-family);
 	font-weight: var(--vscode-font-weight);
-	font-size: var(--vscode-font-size);
+    font-size: var(--vscode-font-size);
+    max-width: 98%;
 }

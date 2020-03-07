@@ -6,11 +6,8 @@ import searchResultStore from '../stores/search-result.store';
 </script>
 <style type="text/scss">
 @import '../styles/index.scss';
-.search-page {
-  border: solid 1px hotpink !important;
-}
 </style>
-<div class="column search-page">
+<div class="search-page">
   <SearchResultSummary></SearchResultSummary>
   <div class="results"><Results results={$normalizedSearchResultStore} /></div>
 </div>

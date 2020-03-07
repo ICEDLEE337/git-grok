@@ -21,6 +21,18 @@ let search = function search() {
 
 <style type="text/scss">
 @import '../styles/index.scss';
+
+.row {
+	display: flex;
+}
+
+.button {
+	flex: initial;
+}
+
+.input {
+	flex: 1;
+}
 </style>
 
 <form class="row" on:submit={search}>
