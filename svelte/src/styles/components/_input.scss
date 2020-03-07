@@ -9,4 +9,6 @@
     border: none 1px $button-background !important;
     border-bottom-style: solid !important;
     width: 100%;
+
+    @extend .nofo;
 }

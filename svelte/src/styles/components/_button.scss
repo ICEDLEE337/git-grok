@@ -6,8 +6,5 @@
     background-color: transparent !important;
     border: none !important;
 
-    &:active, &:focus, &:hover {
-        border: none !important;
-        outline: none !important;
-    }
+    @extend .nofo;
 }
