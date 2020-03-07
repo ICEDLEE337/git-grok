@@ -3,11 +3,16 @@ import {repoResultStore} from '../stores/search-result.store';
 
 </script>
 
-<nav class="level">
-  <div class="level-item has-text-centered">
-    <div>
-      <p class="heading">Repos</p>
-      <p class="title">{$repoResultStore.length}</p>
-    </div>
+
+<style type="text/scss">
+@import '../styles/index.scss';
+</style>
+
+{#if $repoResultStore.length}
+<section class="row">
+  <div class="column">
+    <p class="subtle center">Repos</p>
+    <p class="center">{$repoResultStore.length}</p>
   </div>
-</nav>
+</section>
+{/if}

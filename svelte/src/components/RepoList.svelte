@@ -2,7 +2,6 @@
   import { onMount, onDestroy } from "svelte";
   import repoListStore from "../stores/repo-list.store";
   import { postMessage } from "../lib/post-message";
-  import Check from "./Check.svelte";
   import Clone from "./Clone.svelte";
   import Icon from "./Icon.svelte";
   import { fly } from "svelte/transition";

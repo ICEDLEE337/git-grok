@@ -4,8 +4,11 @@
 
 .button {
     padding: $padding;
-    border: none !important;
     color: $editor-foreground !important;
     background-color: $editor-background !important;
-    border-radius: $radius;
+    border: none !important;
+
+    &:active, &:focus, &:hover {
+        border: none !important;
+    }
 }

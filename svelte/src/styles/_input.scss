@@ -4,20 +4,7 @@
 
 .input {
     padding: $padding;
-    background-color: $button-background !important;
-    color: $editor-foreground !important;
-    border-color: $editor-foreground !important;
-    border-top-style: none !important;
-    border-left-style: none !important;
-    border-right-style: none !important;
-    border-radius: $radius;
-
-    &:active, &:focus {
-        border-color: $button-foreground !important;
-        border-top-style: none !important;
-        border-left-style: none !important;
-        border-right-style: none !important;
-    }
+    background-color: $input-background !important;
+    color: $input-foreground !important;
+    border-bottom: solid 1px $button-background !important;
 }
-
-    // https://code.visualstudio.com/api/references/theme-color

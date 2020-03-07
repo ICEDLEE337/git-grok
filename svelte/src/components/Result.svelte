@@ -21,16 +21,10 @@ function openUrl () {
 
 </script>
 <style type="text/scss">
-    .pinned {
-        position: absolute;
-
-        &.is-right {
-            right: 1em;
-        }
-    }
+@import '../styles/index.scss';
 </style>
 <!-- svelte-ignore a11y-missing-attribute -->
-<nav class="panel">
+<span class="result card">
   <p class="panel-heading">
     <span>{path}</span>
     <span class="is-right pinned">
@@ -43,7 +37,7 @@ function openUrl () {
     </span>
   </p>
 
-  <p class="panel-tabs" style="overflow-x: scroll;">
+  <p class="panel-tabs">
     <a class={{'is-primary': !activeMatch}} on:click="{()=>{activeMatch = null}}">all</a>
     {#each fileList as fileName}
       <a class={{'is-primary': fileName == activeMatch}} on:click="{()=>{activeMatch = fileName}}">{fileName}</a>
@@ -64,4 +58,4 @@ function openUrl () {
         {/each}
     {/if}
   {/each}
-</nav>
+</span>

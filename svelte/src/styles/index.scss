@@ -1,5 +1,56 @@
 @charset 'utf-8';
+@import "reset";
 @import "variables";
-@import "button";
 @import "colors";
+@import "button";
+@import "card";
 @import "input";
+
+.row, .column {
+    display: flex !important;
+    justify-content: stretch !important;
+    align-content: flex-start !important;
+    align-items: flex-start !important;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.subtle {
+    color: $input-placeholder-foreground;
+}
+
+.font-brand, .font-accent {
+    font-weight: 900;
+}
+
+.font-brand {
+    font-family: 'Major Mono Display';
+    // color: $button-background;
+    color: var(--vscode-activity-bar-background);
+}
+
+.font-accent {
+     font-family: 'Anonymous Pro';
+}
+
+body {
+    background-color: $editor-background !important;
+    color: $editor-foreground !important;
+    font-family: var(--vscode-font-family);
+	font-weight: var(--vscode-font-weight);
+	font-size: var(--vscode-font-size);
+}

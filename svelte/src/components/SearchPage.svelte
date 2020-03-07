@@ -1,23 +1,16 @@
 <script>
 import Results from '../components/Results.svelte';
-import Search from '../components/Search.svelte';
 import SearchResultSummary from '../components/SearchResultSummary.svelte';
 import {normalizedSearchResultStore} from '../stores/search-result.store';
 import searchResultStore from '../stores/search-result.store';
 </script>
-<style>
-.search {
-  width: 100%;
-  height: 10vh;
-}
-.results {
-  width: 100%;
-  min-height: 90vh;
+<style type="text/scss">
+@import '../styles/index.scss';
+.search-page {
+  border: solid 1px hotpink !important;
 }
 </style>
-
-<div class="search"><Search /></div>
-{$normalizedSearchResultStore.length}
-{$searchResultStore.length}
-<SearchResultSummary></SearchResultSummary>
-<div class="results"><Results results={$normalizedSearchResultStore} /></div>
+<div class="column search-page">
+  <SearchResultSummary></SearchResultSummary>
+  <div class="results"><Results results={$normalizedSearchResultStore} /></div>
+</div>
