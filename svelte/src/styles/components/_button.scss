@@ -4,6 +4,7 @@
 .button {
     padding: $padding;
     background-color: transparent !important;
+    color: $button-foreground !important;
     border: none !important;
 
     @extend .nofo;
