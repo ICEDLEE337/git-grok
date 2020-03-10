@@ -1,5 +1,6 @@
-import { join } from "path";
+import { join, resolve } from "path";
 import { execSync } from 'child_process';
+import { readdirSync } from "fs";
 
 export abstract class GeneratorBase {
     constructor(
@@ -9,12 +10,17 @@ export abstract class GeneratorBase {
     ) {
     }
 
-    protected log (msg: any) {
+    static enumerateAssets(assetPaths: string[]) {
+        const root = assetPaths.join('/');
+        return readdirSync(resolve(root)).map(file => `${root}/${file}`);
+    }
+
+    protected log(msg: any) {
         this.vscode.window.showWarningMessage(msg);
     }
 
     protected extractAssetContent(assetName: string): string {
-        const {fsPath} = this.asWebviewUri(assetName);
+        const { fsPath } = this.asWebviewUri(assetName);
         const content = execSync(`cat ${fsPath}`).toString();
         return content;
     }

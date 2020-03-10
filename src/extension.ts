@@ -6,9 +6,13 @@ import { openFolderHandler } from './lib/handlers/open-folder.handler';
 import { cloneHandler } from './lib/handlers/clone.handler';
 import { searchHandler } from './lib/handlers/search.handler';
 import { SvelteGenerator } from './lib/html-generation/svelte-generator.class';
+import { GeneratorBase } from './lib/html-generation/generator-base.class';
+import { NgGenerator } from './lib/html-generation/ng-generator.class';
+import { join } from 'path';
 // import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
+	const assets = GeneratorBase.enumerateAssets(['soundcheck', 'dist', 'soundcheck']);
 
 	let disposable = vscode.commands.registerCommand('extension.gitGrok', () => {
 		const panel = vscode.window.createWebviewPanel(
@@ -16,7 +20,7 @@ export function activate(context: vscode.ExtensionContext) {
 			'GitGrok',
 			vscode.ViewColumn.One,
 			{ enableScripts: true,
-				// localResourceRoots: [vscode.Uri.file(join(context.extensionPath, 'ng', 'dist', 'ng'))]
+				localResourceRoots: assets.map(a => vscode.Uri.file(join(context.extensionPath, a)))
 			 }
 		);
 
@@ -57,7 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
 			context.subscriptions
 		);
 		try {
-			const html = new SvelteGenerator(vscode, panel, context).getHtml();
+			const html = new NgGenerator(vscode, panel, context).getHtml();
 			panel.webview.html = html;
 		}
 		catch (e) {

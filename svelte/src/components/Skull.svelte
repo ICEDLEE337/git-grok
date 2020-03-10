@@ -1,1 +1,0 @@
-<i class="icon is-small">&#9760</i>
