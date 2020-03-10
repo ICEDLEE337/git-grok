@@ -25,7 +25,7 @@
     "build": "cd svelte && npm run build",
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
-    "watch": "npm run build && tsc -watch -p ./",
+    "watch": "tsc -watch -p ./",
     "test": "jest"
   },
   "devDependencies": {

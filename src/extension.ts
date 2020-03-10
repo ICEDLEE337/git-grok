@@ -12,7 +12,10 @@ import { join } from 'path';
 // import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-	const assets = GeneratorBase.enumerateAssets(['soundcheck', 'dist', 'soundcheck']);
+	const assetPaths = ['soundcheck', 'dist', 'soundcheck'];
+	// const assets = GeneratorBase.enumerateAssets(process.cwd(), ['soundcheck', 'dist', 'soundcheck']);
+	const assets = NgGenerator.enumerateAssets(context.extensionPath, assetPaths);
+	vscode.window.showInformationMessage(assets.sort().join(' '));
 
 	let disposable = vscode.commands.registerCommand('extension.gitGrok', () => {
 		const panel = vscode.window.createWebviewPanel(
@@ -20,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 			'GitGrok',
 			vscode.ViewColumn.One,
 			{ enableScripts: true,
-				localResourceRoots: assets.map(a => vscode.Uri.file(join(context.extensionPath, a)))
+				localResourceRoots: [vscode.Uri.file(join(context.extensionPath, ...assetPaths))]
 			 }
 		);
 

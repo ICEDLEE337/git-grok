@@ -1,18 +1,20 @@
-import { join, resolve } from "path";
+import { join, resolve, parse } from "path";
 import { execSync } from 'child_process';
 import { readdirSync } from "fs";
+import { WebviewPanel, ExtensionContext } from "vscode";
+import * as IVsCode from 'vscode';
 
 export abstract class GeneratorBase {
     constructor(
-        protected readonly vscode: any,
-        protected readonly panel: any,
-        protected readonly context: any
+        protected readonly vscode: typeof IVsCode,
+        protected readonly panel: WebviewPanel,
+        protected readonly context: ExtensionContext
     ) {
     }
 
-    static enumerateAssets(assetPaths: string[]) {
-        const root = assetPaths.join('/');
-        return readdirSync(resolve(root)).map(file => `${root}/${file}`);
+    static enumerateAssets(workingDir: string, assetPaths: string[]) {
+        const root = resolve(workingDir, ...assetPaths);
+        return readdirSync(root).map(parse).map(p => p.base);
     }
 
     protected log(msg: any) {
