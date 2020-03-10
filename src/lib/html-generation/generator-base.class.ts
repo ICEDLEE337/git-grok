@@ -35,5 +35,9 @@ export abstract class GeneratorBase {
         return this.panel.webview.asWebviewUri(onDiskPath);
     }
 
+    protected asHotFire(filenameAndExt: string): string {
+        return join(`vscode-resource:`, this.context.extensionPath, ...this.assetPathParts, filenameAndExt)
+    }
+
     abstract getHtml(): string;
 }

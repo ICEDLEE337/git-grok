@@ -66,6 +66,7 @@ export function activate(context: vscode.ExtensionContext) {
 		try {
 			const generator = new AngularGenerator(vscode, panel, context, assetPaths);
 			const html = generator.getHtml();
+			vscode.window.showInformationMessage(html);
 			panel.webview.html = html;
 		}
 		catch (e) {
