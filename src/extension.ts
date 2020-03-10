@@ -5,26 +5,26 @@ import { RepoManager } from './lib/repo-manager';
 import { openFolderHandler } from './lib/handlers/open-folder.handler';
 import { cloneHandler } from './lib/handlers/clone.handler';
 import { searchHandler } from './lib/handlers/search.handler';
-import { SvelteGenerator } from './lib/html-generation/svelte-generator.class';
-import { GeneratorBase } from './lib/html-generation/generator-base.class';
-import { NgGenerator } from './lib/html-generation/ng-generator.class';
+import { AngularGenerator } from './lib/html-generation/angular-generator.class';
 import { join } from 'path';
 // import { join } from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
-	const assetPaths = ['soundcheck', 'dist', 'soundcheck'];
+
 	// const assets = GeneratorBase.enumerateAssets(process.cwd(), ['soundcheck', 'dist', 'soundcheck']);
-	const assets = NgGenerator.enumerateAssets(context.extensionPath, assetPaths);
-	vscode.window.showInformationMessage(assets.sort().join(' '));
+	// const assets = AngularGenerator.enumerateAssets(context.extensionPath, assetPaths);
+	// vscode.window.showInformationMessage(assets.sort().join(' '));
 
 	let disposable = vscode.commands.registerCommand('extension.gitGrok', () => {
+		const assetPaths = ['soundcheck', 'dist', 'soundcheck'];
 		const panel = vscode.window.createWebviewPanel(
 			'gitgrok',
 			'GitGrok',
 			vscode.ViewColumn.One,
-			{ enableScripts: true,
+			{
+				enableScripts: true,
 				localResourceRoots: [vscode.Uri.file(join(context.extensionPath, ...assetPaths))]
-			 }
+			}
 		);
 
 		panel.webview.onDidReceiveMessage(
@@ -64,7 +64,8 @@ export function activate(context: vscode.ExtensionContext) {
 			context.subscriptions
 		);
 		try {
-			const html = new NgGenerator(vscode, panel, context).getHtml();
+			const generator = new AngularGenerator(vscode, panel, context, assetPaths);
+			const html = generator.getHtml();
 			panel.webview.html = html;
 		}
 		catch (e) {

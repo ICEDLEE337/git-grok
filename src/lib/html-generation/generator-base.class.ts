@@ -8,12 +8,13 @@ export abstract class GeneratorBase {
     constructor(
         protected readonly vscode: typeof IVsCode,
         protected readonly panel: WebviewPanel,
-        protected readonly context: ExtensionContext
+        protected readonly context: ExtensionContext,
+        public readonly assetPathParts: string[]
     ) {
     }
 
-    static enumerateAssets(workingDir: string, assetPaths: string[]) {
-        const root = resolve(workingDir, ...assetPaths);
+    enumerateAssets(workingDir: string) {
+        const root = resolve(workingDir, ...this.assetPathParts);
         return readdirSync(root).map(parse).map(p => p.base);
     }
 
@@ -29,11 +30,10 @@ export abstract class GeneratorBase {
 
     protected asWebviewUri(filenameAndExt: string) {
         const onDiskPath = this.vscode.Uri.file(
-            join(this.context.extensionPath, ...this.getAssetPaths(), filenameAndExt)
+            join(this.context.extensionPath, ...this.assetPathParts, filenameAndExt)
         );
         return this.panel.webview.asWebviewUri(onDiskPath);
     }
 
     abstract getHtml(): string;
-    abstract getAssetPaths(): string[];
 }
