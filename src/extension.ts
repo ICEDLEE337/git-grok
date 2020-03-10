@@ -6,11 +6,13 @@ import { openFolderHandler } from './lib/handlers/open-folder.handler';
 import { cloneHandler } from './lib/handlers/clone.handler';
 import { searchHandler } from './lib/handlers/search.handler';
 import { SvelteGenerator } from './lib/html-generation/svelte-generator.class';
+import { ExtensionModule } from './extension.module';
 // import { join } from 'path';
+import { NestFactory } from '@nestjs/core';
 
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('extension.gitGrok', () => {
+	let disposable = vscode.commands.registerCommand('extension.gitGrok', async () => {
 		const panel = vscode.window.createWebviewPanel(
 			'gitgrok',
 			'GitGrok',
@@ -20,42 +22,8 @@ export function activate(context: vscode.ExtensionContext) {
 			 }
 		);
 
-		panel.webview.onDidReceiveMessage(
-			message => {
-				const postMessage = (command: string, payload: any) => {
-					panel.webview.postMessage({ command, payload });
-				};
-				const { command, payload } = message;
-				switch (command) {
-					case 'search':
-						searchHandler(payload, vscode, postMessage);
-						return;
-					case 'openFile':
-					case 'openFolder':
-						openFolderHandler(payload, vscode);
-						return;
-					case 'clone':
-						cloneHandler(payload, vscode);
-						return;
-					case 'info':
-						vscode.window.showInformationMessage(payload);
-						return;
-					case 'warn':
-						vscode.window.showWarningMessage(payload);
-						return;
-					case 'error':
-						vscode.window.showErrorMessage(payload);
-						return;
-					case 'repoList':
-						new RepoManager().getRepoList().then((repos: any) => {
-							postMessage(command, repos);
-						});
-						return;
-				}
-			},
-			undefined,
-			context.subscriptions
-		);
+		const app = await NestFactory.createApplicationContext(ExtensionModule.forRoot(vscode, panel, context));
+
 		try {
 			const html = new SvelteGenerator(vscode, panel, context).getHtml();
 			panel.webview.html = html;
