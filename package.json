@@ -34,7 +34,7 @@
     "@types/lodash": "^4.14.142",
     "@types/node": "^10.12.21",
     "@types/rx": "^4.1.1",
-    "@types/vscode": "^1.38.0",
+    "@types/vscode": "^1.44.0",
     "glob": "^7.1.4",
     "jest": "^25.1.0",
     "ts-jest": "^24.2.0",
